@@ -428,7 +428,7 @@ button:hover {
 
     .form-group {
         display: flex;
-        width: 20rem;
+        width: 12rem;
         flex-direction: column;
     }
 }
