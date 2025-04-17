@@ -1,78 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manoj Pandekamat | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body >
-    <header>
-        <h1>Hello, I'm Manoj Pandekamat 👋</h1>
-        <p>I am passionate about technology and problem-solving. Here's a glimpse of my work:</p>
-    </header>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Manoj Pandekamat</div>
+      <ul class="nav-links">
+        <li><a href="#AboutMe">About me</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#Business-cases">Business Cases</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#details">Details</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <section class="section">
-            <section class="sub-section">
-                <h2>🛠️ Projects</h2>
-                <ul class="project">
-                    <li><strong>Project 1</strong>: <a href="project1.html">A short description of your project1.</a></li>
-                    <li><strong>Project 2</strong>: <a href="project2.html">A short description of another project2.</a></li>
-                    <li><strong>Project 3</strong>: <a href="project3.html">A short description of another project3.</a></li>
-                </ul>
-            </section>
+  <header class="hero">
+    <h1>Hello, I'm Manoj Pandekamat</h1>
+    <p>Driven by curiosity. Focused on solving real-world problems with technology.</p>
+  </header>
 
-            <section class="sub-section">
-                <h2>🚀 Skills</h2>
-                <ul>
-                    <li><b class="li-style">Languages:</b> C, C++ (Basic), Java, SQL, Python</li>
-                    <li>Data Structures and Algorithms</li>
-                    <li><b class="li-style">Web Technologies:</b> HTML, CSS, JavaScript , Node.js, Express.js, React.js, Tailwind.css, Postman</li>
-                    <li><b class="li-style">Cloud/DevOps Tools:</b> OpenStack, Amazon Web Services, Docker, Kubernetes (Basic)</li>
-                    <li><b class="li-style">Databases:</b> MySQL, MongoDB</li>
-                    <li><b class="li-style">Artificial Intelligence:</b> Pandas, scikit-learn (SKlearn), TensorFlow</li>
-                    <li><b class="li-style">Version Control:</b> Git, GitHub</li>
-                    <li><b class="li-style">Operating System:</b> Linux, Microsoft Windows</li>
-                </ul>
-            </section>
+  <main class="section">
+    <section id="AboutMe" class="sub-section">
+      <h2>About Me</h2>
+      <p id="aboutme-info">
+          I am a software developer with a strong foundation in Java, focusing on data structures and algorithms (DSA) development. My expertise extends to the MERN stack (MongoDB, Express.js, React.js, Node.js), which enables me to build robust web applications. Additionally, I am familiar with DevOps tools like Docker and Kubernetes, which enhance my ability to manage cloud-based applications efficiently.
 
-       <section class="sub-section">
-        <h2>🌐 Find Me Online</h2>
-        <ul>
-            <li><a href="https://github.com/manojPandekamat" target="_blank">GitHub</a></li>
-            <li><a href="https://linkedin.com/in/manoj-pandekamat-98a96425b/" target="_blank">LinkedIn</a></li>
-        </ul>
-       </section>
-
-        <section class="sub-section">
-            <h2>Portfolio Topic</h2>
-        <dl>
-            <dt>Course Name</dt>
-            <dd>Algorithmic Problem Solving</dd>
-
-            <dt>Course Code</dt>
-            <dd>Course Code Placeholder</dd>
-
-            <dt>Name</dt>
-            <dd>Manoj M Pandekamat</dd>
-
-            <dt>SRN</dt>
-            <dd>01FE22BCS279</dd>
-
-            <dt>Course Instructor</dt>
-            <dd>Prakash Hegade</dd>
-
-            <dt>University</dt>
-            <dd>KLE Technological University</dd>
-
-            <dt>Portfolio Topic/Domain</dt>
-            <dd>Google</dd>
-        </dl>
-
-        </section>
-
-        <blockquote>“The only way to do great work is to love what you do.” – Steve Jobs</blockquote>
+          Beyond technical expertise, I am passionate about problem-solving and have honed my time management skills to meet deadlines. I thrive in team environments, collaborating effectively, and communicate clearly to ensure project success.
+          
+      </p>
+      
     </section>
+
+    <section class="sub-section">
+      <h2>Education</h2>
+      <div id="education" class="education-content">
+        <div class="education-item">
+          <h3>Bachelor of Engineering in Computer Science</h3>
+          <p class="edu-institute">KLE Technological University</p>
+          <p class="edu-year">Expected Graduation: 2026</p>
+          <p class="edu-grade"><strong>CGPA:</strong> 9.31</p>
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    <section id="skills" class="sub-section">
+      <h2>🚀 Skills</h2>
+      <h3>Technical Skills</h3>
+      <ul class="project2">
+        <li><b class="li-style">Languages:</b> C, C++ (Basic), Java, SQL, Python</li>
+        <!-- <li><b class="li-style">Core:</b> Data Structures and Algorithms</li> -->
+        <li><b class="li-style">Web Technologies:</b> HTML, CSS, JavaScript, Node.js, Express.js, React.js, Tailwind.css, Postman</li>
+        <li><b class="li-style">Cloud/DevOps:</b> OpenStack, AWS, Docker, Kubernetes (Basic)</li>
+        <li><b class="li-style">Databases:</b> MySQL, MongoDB</li>
+        <li><b class="li-style">AI/ML:</b> Pandas, scikit-learn, TensorFlow</li>
+        <li><b class="li-style">Version Control:</b> Git, GitHub</li>
+      </ul>
+      <h3>Soft Skills</h3>
+      <ul class="project2">
+        <li >Communication</li>
+        <li >Problem Solving</li>
+        <li >Time Management</li>
+        <li >Team Work</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="sub-section">
+      <h2>🛠️ Projects</h2>
+      <ul class="project">
+        <li class="project-item">
+            <h3 class="project-title">Smart Parking System using ATmega32</h3>
+            <p class="project-desc">
+                A fully automated parking system built with the ATmega32 microcontroller. It uses IR sensors to detect vehicles, a stepper motor for gate control, and an LED display to show available parking slots. Entry is allowed only if slots are available; otherwise, the gate remains closed. The project is simulated using Proteus with custom HEX codes and IR sensor libraries.
+            </p>
+            <div class="tech-used">
+                <span class="tech-head">Technologies Used:</span>   
+                <span class="tech-item">ATmega32 Microcontroller</span>
+                <span class="tech-item">IR Sensors</span>
+                <span class="tech-item">Stepper Motor</span>
+                <span class="tech-item">LED Display</span>
+                <span class="tech-item">Proteus Simulation</span>
+                <a class="project-link" title="View Project on Github" target="_blank" href="https://github.com/ManojPandekamat/Autometic-vehicle-Parking-system"><img height="25px" src="./image.png" alt="github" ></a>
+            </div>
+        </li>
+        <li class="project-item">
+            <h3 class="project-title">Intelligent Routing In SDN</h3>
+            <p class="project-desc">
+                We developed an AI-based intelligent routing system in SDN using OpenDaylight and Mininet. A BiLSTM model dynamically calculated link weights, which were used to construct a cost matrix. Dijkstra’s algorithm was then applied to determine optimal paths, and corresponding flow rules were installed. The system’s performance was evaluated against QoS-based and hop-count-based routing methods using D-ITG for traffic generation.
+
+            </p>
+            <div class="tech-used">
+                <span class="tech-head">Technologies Used:</span>   
+                <span class="tech-item">Mininet</span>
+                <span class="tech-item">OpendayLight SDN Controller</span>
+                <span class="tech-item">D-ITG tool</span>
+                <span class="tech-item">BiLSTM</span>
+                <span class="tech-item">Python</span>
+                <a class="project-link" title="View Project on Github" target="_blank" href="https://github.com/ManojPandekamat/Intelligent-Routing-in-SDN"><img height="25px" src="./image.png" alt="github" ></a>
+            
+            </div>
+        </li>
+        <li class="project-item">
+            <h3 class="project-title">Intrusion detection in 5g networks using Machine Learning</h3>
+            <p class="project-desc">
+                We implemented and compared multiple ML models—Random Forest, LSTM, BiLSTM, and CNN—on the CIC-IDS-2017 dataset for intrusion detection in 5G networks. Based on performance, we proposed a hybrid BiLSTM-RF model that achieved improved accuracy and detection rates.
+             </p>
+            <div class="tech-used">
+                <span class="tech-head">Technologies Used:</span>   
+                <span class="tech-item">Python</span>
+                <span class="tech-item">TensorFlow</span>
+                <span class="tech-item">Pandas</span>
+                <span class="tech-item">scikit-learn</span>
+                <a class="project-link" title="View Project on Github" target="_blank" href="https://github.com/ManojPandekamat/Intrusion-Detection-and-Prevention-in-5g-Networks-using-Machine-Learning"><img height="25px" src="./image.png" alt="github" ></a>
+            </div>
+        </li>
+        <li class="project-item">
+            <h3 class="project-title">Mobile Edge Computing in Private 5g Network</h3>
+            <p class="project-desc">
+                We deployed a real-time 5G network using Open5GS as the core and srsRAN as the RAN, interfaced with commercial 5G devices (Samsung S23,OPPO Reno 5G) through a USRP B210 base station. This setup was developed in the context of Mobile Edge Computing (MEC), enabling low-latency, localized data processing at the network edge.
+            </p>
+            <div class="tech-used">
+                <span class="tech-head">Technologies Used:</span>   
+                <span class="tech-item">Open5gs</span>
+                <span class="tech-item">srsRAN</span>
+                <span class="tech-item">USRP B210</span>
+                <a class="project-link" title="View Project on Github" target="_blank" href="https://github.com/ManojPandekamat/Private-5g-setup-with-Open5gs-and-srsRAN-and-B210"><img height="25px" src="./image.png" alt="github" ></a>
+                
+            </div>
+        </li>
+      </ul>
+    </section>
+
+
+    <section id="Business-cases" class="sub-section">
+      <h2>Top 5 Google Use Cases in 2025</h2>
+      <div class="use-case-list">
+    
+        <div class="use-case-item">
+          <h3>Agent2Agent (A2A) Protocol</h3>
+          <p>
+            An open-source standard enabling seamless collaboration between AI agents across different platforms, allowing complex workflows like hiring, supply chain, and customer support to be automated by interconnected agent ecosystems.
+          </p>
+        </div>
+    
+        <div class="use-case-item">
+          <h3>Gemini 2.5 Flash</h3>
+          <p>
+            A lean, cost-efficient AI model that lets developers balance speed and depth of reasoning, making advanced AI accessible for startups and specialized applications without compromising performance.
+          </p>
+        </div>
+    
+        <div class="use-case-item">
+          <h3>Project Astra</h3>
+          <p>
+            A universal AI assistant capable of real-time understanding and response using visual, audio, and textual inputs, pushing the boundaries of helpfulness and context-aware interaction.
+          </p>
+        </div>
+    
+        <div class="use-case-item">
+          <h3>Ironwood TPU</h3>
+          <p>
+            Google’s latest AI chip delivers a 3,600x leap in inference power, drastically reducing processing time and energy use for large-scale AI workloads, transforming the economics of AI deployment.
+          </p>
+        </div>
+    
+      </div>
+    </section>
+    
+    
+    <section id="contact" class="sub-section">
+      <h2>🌐 Find Me Online</h2>
+      <ul class="project3">
+        <li><a class="contact-link" href="https://github.com/ManojPandekamat/" target="_blank"><img height="20px" src="./image.png" alt="">GitHub</a></li>
+        <li><a class="contact-link" href="https://www.linkedin.com/in/manoj-pandekamat-98a96425b/" target="_blank"><img height="20px" src="./image2.png" alt="">LinkedIn</a></li>
+      </ul>
+
+      <section >
+        <h2>Contact Me</h2>
+        <form action="https://formsubmit.co/mpandekamat@gmail.com" method="POST" class="contact-form">
+          
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_subject" value="New Message from Portfolio Site">
+      
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="John Doe">
+          </div>
+      
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required placeholder="john@example.com">
+          </div>
+      
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="6" required placeholder="Write your message here..."></textarea>
+          </div>
+      
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+      
+    </section>
+
+    <section id="details" class="sub-section">
+      <h2>Portfolio Details</h2>
+      <dl>
+        <dt>Course Name</dt>
+        <dd>Algorithmic Problem Solving</dd>
+        <dt>Course Code</dt>
+        <dd>Course Code Placeholder</dd>
+        <dt>Name</dt>
+        <dd>Manoj M Pandekamat</dd>
+        <dt>SRN</dt>
+        <dd>01FE22BCS279</dd>
+        <dt>Course Instructor</dt>
+        <dd>Prakash Hegade</dd>
+        <dt>University</dt>
+        <dd>KLE Technological University</dd>
+        <dt>Portfolio Topic</dt>
+        <dd>Google</dd>
+      </dl>
+    </section>
+
+    <blockquote>"The only way to do great work is to love what you do." – Steve Jobs</blockquote>
+  </main>
 </body>
 </html>
