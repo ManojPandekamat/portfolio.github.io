@@ -93,6 +93,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
+    text-shadow: 0 0 8px rgba(75, 42, 173, 0.6); /* ✨ glow effect */
 }
 
 .hero p {
