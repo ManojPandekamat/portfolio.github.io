@@ -372,6 +372,7 @@ textarea {
     border: 1px solid #ccc;
     border-radius: var(--border-radius);
     font-size: 1rem;
+    resize: none;
 }
 
 button {
