@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RDS-service</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon RDS: Relational Database Service</h1>
+
+    <section id="intro">
+        Amazon Relational Database Service (Amazon RDS) is a managed relational database service provided by Amazon Web Services (AWS). It simplifies the setup, operation, and scaling of databases in the cloud, offering cost-efficient and resizable capacity while automating tasks such as backups, patching, and monitoring.
+    </section>
+    <section>
+        <h2>Architecture of RDS</h2>
+        <img  width="60%" src="../ref-images/rds.png" alt="rds">
+        <ul>
+    <li>
+        <strong>AWS RDS</strong> (Relational Database Service) is a managed service that provides databases running on dedicated <strong>EC2 (Elastic Cloud Compute)</strong> servers. Users can start and use the service without worrying about the underlying components.
+    </li>
+    <li>
+        On top of <strong>EC2</strong>, the <strong>DB software</strong> (like MySQL, PostgreSQL, or Oracle) runs, but we do not have direct access to either the EC2 layer or the DB software layer — we only specify configurations such as CPU, memory, storage, and database engine.
+    </li>
+    <li>
+        The <strong>Endpoint</strong> is the fully qualified hostname or address that applications use to connect to the RDS database, along with the port number.
+    </li>
+    <li>
+        All RDS resources are hosted inside a <strong>VPC (Virtual Private Cloud)</strong>, which is a logically isolated section of the AWS cloud. A VPC maps to a region and contains <strong>subnets</strong>, which are logical subdivisions, each tied to an <strong>Availability Zone (AZ)</strong> — similar to physical data centers. This ensures resources are grouped securely and no other AWS account can access them.
+    </li>
+    <li>
+        A <strong>Security Group</strong> acts as a virtual firewall, safeguarding the RDS instance. It controls inbound and outbound traffic, ensuring only authorized clients can connect to the database through the specified endpoint.
+    </li>
+    <li>
+        <strong>Read Replicas</strong> help scale out read-heavy workloads by asynchronously copying updates from the primary database. This is useful when, for example, a web application handles both user-facing and reporting tasks — the read replicas handle all the read-only traffic, while the primary handles both reads and writes.
+    </li>
+    <li>
+        <strong>Backup and Maintenance</strong> are automatically handled by AWS. RDS takes storage volume snapshots of the entire DB instance for backups, ensuring data durability. To minimize performance impacts, it’s recommended to schedule backups and maintenance tasks during off-peak application usage times.
+    </li>
+</ul>
+
+    </section>
+
+    <section>
+        <h2>Steps to Set Up RDS in AWS</h2>
+        <ul>
+            <li><strong>Choose a Database Engine:</strong> Select from supported engines like MySQL, PostgreSQL, MariaDB, Oracle, or Microsoft SQL Server.</li>
+            <li><strong>Create a Database Instance:</strong> Define instance specifications (instance class, storage, region) and provide database details (name, username, password).</li>
+            <li><strong>Configure Network & Security:</strong> Set up VPC, subnets, and security groups to control network access and connectivity.</li>
+            <li><strong>Set Backup and Maintenance:</strong> Enable automated backups, define backup windows, and configure maintenance schedules.</li>
+            <li><strong>Access and Connect:</strong> Use endpoints provided by RDS to connect applications, tools, or users to the database securely.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>How AWS Manages Databases</h2>
+        <p>
+            AWS RDS handles the heavy lifting of database management by automating administrative tasks like hardware provisioning, database setup, patching, and backups, allowing you to focus on your applications.
+        </p>
+        <h2>Key Features:</h2>
+        <ul>
+            <li><strong>High Availability:</strong> Deploy Multi-AZ instances for failover support and read replicas for scaling read-heavy workloads.</li>
+            <li><strong>Automated Backups:</strong> Enable point-in-time recovery using continuous backups to Amazon S3.</li>
+            <li><strong>Security:</strong> Use network isolation with Amazon VPC, encryption at rest and in transit, and IAM for access control.</li>
+            <li><strong>Monitoring:</strong> Integrate with Amazon CloudWatch for metrics and alarms, plus use Performance Insights for query analysis.</li>
+        </ul>
+        <p>
+            RDS provides managed relational database solutions that are scalable, secure, and easy to administer, making it ideal for transactional workloads, analytics, and operational systems.
+        </p>
+    </section>
+
+   
+    <section>
+        <h2>A Node.js code snippet to create an RDS instance</h2>
+        <img width="60%" src="../ref-images/rds-creation.png" alt="rds-creation">
+        <h2>How to Connect and Query Data from an RDS Database</h2>
+        <img width="60%" src="../ref-images/rds-read.png" alt="rds-query">
+    </section>
+
+    <section>
+        <h2>AWS Use Cases for RDS</h2>
+
+        <h3>Web and Mobile Applications</h3>
+        <p>Host backend databases for web and mobile applications with managed scalability and high availability.</p>
+
+        <h3>Analytics and Reporting</h3>
+        <p>Run transactional analytics and generate reports directly on relational data using read replicas and Performance Insights.</p>
+
+        <h3>SaaS Applications</h3>
+        <p>Power multi-tenant SaaS platforms with secure, scalable relational databases managed by AWS.</p>
+
+        <h3>Enterprise Applications</h3>
+        <p>Migrate and run ERP, CRM, and other enterprise workloads with minimal administrative overhead and robust performance.</p>
+    </section>
+
+    <!-- Corner links container -->
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+
+    <section class="references">
+        <h2>References</h2>
+            <a target="_blank" href="https://aws.amazon.com/rds/">1. Amazon RDS Official Page</a>
+            <div>
+                2. Image of RDS Architecture and information about RDS
+                <a target="_blank" href="https://medium.com/nerd-for-tech/how-does-aws-rds-works-aws-rds-architecture-overview-interview-q-a-722625f65c60">AWS RDS Deep Dive</a>
+            </div>
+    </section>
+</body>
+</html>

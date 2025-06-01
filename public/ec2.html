@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EC2-service</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon EC2: Elastic Cloud Computing</h1>
+
+    <section id="intro">
+        Amazon Elastic Compute Cloud (Amazon EC2) is a scalable, on-demand cloud computing service provided by Amazon Web Services (AWS) that enables users to launch and manage virtual servers, known as instances, to run applications and workloads in the cloud.
+    </section>
+
+    <section>
+        <h2>Architecture</h2>
+        <img src="../ref-images/ec2.png" alt="ec2-architecture" />
+
+        <h2>Steps to Create an EC2 Instance in AWS</h2>
+        <ul>
+            <li><strong>Select AWS Region:</strong> The user begins by choosing the AWS region where the instance will be launched. This determines the physical data center location.</li>
+            <li><strong>Choose a Virtual Private Cloud (VPC):</strong> The user selects a VPC that isolates the instance in a private network environment.</li>
+            <li><strong>Launch the EC2 Instance:</strong> The user selects the instance type and Amazon Machine Image (AMI), then launches the instance inside the chosen VPC.</li>
+            <li><strong>Associate with Security Group:</strong> Attach a security group to the instance. The security group acts as a virtual firewall controlling inbound and outbound traffic, e.g., allowing SSH (port 22) or HTTP (port 80).</li>
+            <li><strong>Connect Instance to Internet:</strong> Ensure the instance has a public IP address or Elastic IP, and that the subnet is associated with an Internet Gateway. This allows the instance to communicate with the internet.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>How AWS manages VM</h2>
+        <p>
+            AWS uses <strong>AWS Nitro System</strong>, a collection of hardware and software components designed to provide high performance, security, and efficiency for Amazon EC2 instances.
+        </p>
+        <h2>Key Features:</h2>
+        <ul>
+            <li><strong>Dedicated Hardware:</strong> Offloads many traditional virtualization functions to custom hardware, reducing overhead.</li>
+            <li><strong>Security:</strong> Isolates compute, memory, and storage resources to enhance security and protect customer data.</li>
+            <li><strong>Performance:</strong> Minimizes virtualization overhead, enabling near bare-metal performance for EC2 instances.</li>
+            <li><strong>Scalability:</strong> Supports a wide range of instance types and sizes, helping AWS deliver flexible cloud computing resources.</li>
+        </ul>
+        <p>
+            Nitro is the foundation for modern EC2 instances and enables AWS to innovate faster by improving security and performance without compromising scalability.
+        </p>
+    </section>
+
+    <section>
+        <h2>AWS Use Cases</h2>
+
+        <h3>Run Cloud-Native and Enterprise Applications</h3>
+        <p>Deliver secure, reliable, high-performance, and cost-effective compute infrastructure to meet demanding business needs.</p>
+
+        <h3>Scale for HPC Applications</h3>
+        <p>Access the on-demand infrastructure and capacity you need to run HPC applications faster and cost-effectively.</p>
+
+        <h3>Develop for Apple Platforms</h3>
+        <p>Build, test, and sign on-demand macOS workloads. Access environments in minutes, dynamically scale capacity as needed, and benefit from AWS’s pay-as-you-go pricing.</p>
+
+        <h3>Train and Deploy ML Applications</h3>
+        <p>Deliver the broadest choice of compute, networking (up to 400 Gbps), and storage services purpose-built to optimize price performance for ML projects.</p>
+    </section>
+
+    <!-- Corner links container -->
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+
+    <section class="references">
+        <h2>References</h2>
+        <div>
+            <p>1.Image of EC2 Architecture</p>
+            <a target="_blank" href="https://media.geeksforgeeks.org/wp-content/uploads/20230802125628/AWS-EC2-Instance-types.png">Image link:GeeksforGeeks</a>
+        </div>
+        <div>
+            <p>2.More about EC2-service</p>
+            <a target="_blank" href="https://aws.amazon.com/pm/ec2/">EC2</a>
+        </div>
+    </section>
+</body>
+</html>

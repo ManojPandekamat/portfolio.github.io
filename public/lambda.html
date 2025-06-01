@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AWS Lambda Service</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon Lambda: Serverless Compute Service</h1>
+
+    <section id="intro">
+        Amazon Lambda is a serverless compute service from AWS that allows you to run code without provisioning or managing servers. You pay only for the compute time you consume — there’s no charge when your code isn’t running.
+    </section>
+
+    <section>
+        <h2>Steps to Create an AWS Lambda Function</h2>
+        <ul>
+            <li><strong>Select AWS Region:</strong> Choose the AWS region where you want to deploy the Lambda function.</li>
+            <li><strong>Create a Lambda Function:</strong> Define the function name, runtime (e.g., Node.js, Python), and code you want to execute.</li>
+            <li><strong>Set Permissions:</strong> Attach an IAM role to the function, specifying the AWS resources it can access.</li>
+            <li><strong>Configure Triggers:</strong> Set up triggers like API Gateway, S3 events, DynamoDB streams, or scheduled CloudWatch events to invoke the function.</li>
+            <li><strong>Deploy and Test:</strong> Deploy the function and test it through the AWS console or via integrated services.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>How AWS Manages Lambda Execution</h2>
+        <p>
+            AWS Lambda abstracts the server layer and handles scaling, patching, and managing the underlying compute fleet. Functions are executed in isolated environments using microVMs (based on the Firecracker virtualization technology), ensuring security and scalability.
+        </p>
+        <h2>Key Features:</h2>
+        <ul>
+            <li><strong>Automatic Scaling:</strong> Instantly handles incoming request volume by running multiple copies of the function as needed.</li>
+            <li><strong>Pay-per-use:</strong> Charges only for the compute time your code consumes, measured in milliseconds.</li>
+            <li><strong>Event-driven:</strong> Automatically integrates with AWS services and external event sources for seamless triggering.</li>
+            <li><strong>Stateless:</strong> Each invocation is independent, with no need to manage underlying infrastructure or persistent connections.</li>
+        </ul>
+        <p>
+            Lambda helps developers build scalable, event-driven applications quickly by abstracting away server management, letting you focus entirely on code.
+        </p>
+    </section>
+
+    <section>
+    <h2>MicroVMs in AWS Lambda</h2>
+    <img src="../ref-images/lambda-microVM.png" alt="microvm">
+    <p>
+        AWS Lambda executes each function invocation inside a <strong>microVM</strong>, which is a lightweight, secure virtual machine. Each microVM is <strong>dedicated to a single invocation</strong>, ensuring that functions are isolated from each other. This isolation enhances both security and performance.
+    </p>
+    <p>
+        These microVMs are created and managed on <strong>worker hosts</strong>, typically EC2 Spot instances. Each worker host can manage hundreds of microVMs concurrently, allowing multiple invocations of the same or different functions to run in parallel.
+    </p>
+    <p>
+        This architecture ensures high availability, robust load balancing, and automatic scaling across multiple Availability Zones. The microVM lifecycle is tightly controlled to ensure low startup latency and efficient execution.
+    </p>
+
+    <h2>Firecracker: The Engine Behind MicroVMs</h2>
+    <p>
+        <strong>Firecracker</strong> is a virtualization technology developed by Amazon and written in <strong>Rust</strong>. It powers AWS Lambda by enabling the rapid creation of secure and minimal-overhead microVMs.
+    </p>
+    <p>
+        Unlike traditional hypervisors, Firecracker launches microVMs in milliseconds, making it ideal for the event-driven nature of Lambda functions. It allocates only the necessary resources (CPU, memory) per invocation and shuts them down after execution, ensuring cost and resource efficiency.
+    </p>
+    <p>
+        Firecracker is fundamental to how Lambda achieves <strong>serverless compute with near-instantaneous responsiveness</strong> and secure multi-tenancy across diverse workloads.
+    </p>
+</section>
+
+
+    <section>
+        <h2>AWS Lambda Use Cases</h2>
+
+        <h3>Build Serverless Web Applications</h3>
+        <p>Combine Lambda with API Gateway, DynamoDB, and S3 to create fully serverless web apps that scale automatically.</p>
+
+        <h3>Real-time File Processing</h3>
+        <p>Automatically process files uploaded to S3, such as resizing images, transcoding videos, or validating data.</p>
+
+        <h3>Automate Backend Tasks</h3>
+        <p>Run backend automation like backups, reporting, and notifications triggered by CloudWatch events or database updates.</p>
+
+        <h3>Run Machine Learning Inference</h3>
+        <p>Use Lambda to run lightweight ML inference tasks in response to real-time events without managing a separate server.</p>
+    </section>
+
+    <!-- Corner links container -->
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+
+    <section class="references">
+        <h2>References</h2>
+        <div>
+           
+            <a target="_blank" href="https://medium.com/@joudwawad/aws-lambda-architecture-deep-dive-bef856b9b2c4">1. Image and information about AWS Lambda</a>
+        </div>
+        <div>
+            <p>2. More about Lambda service</p>
+            <a target="_blank" href="https://aws.amazon.com/lambda/">AWS Lambda</a>
+        </div>
+    </section>
+</body>
+</html>

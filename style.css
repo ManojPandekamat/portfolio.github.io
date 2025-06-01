@@ -131,6 +131,10 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%; /* Make the width flexible */
     margin: auto; /* Center the sub-section */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 40px; /* Reduced top margin */
 }
 
@@ -397,6 +401,57 @@ button:hover {
     flex-direction: column;
     margin: auto; /* Center align on larger screens */
 }
+
+
+.use-case-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.use-case-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px var(--color-shadow);
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.use-case-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px var(--color-shadow);
+}
+
+.use-case-item h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.use-case-item p {
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
 
 /* Other responsive adjustments for different breakpoints */
 @media (max-width: 1024px) {

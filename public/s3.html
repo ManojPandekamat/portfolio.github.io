@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>S3-service</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon S3: Simple Storage Service</h1>
+
+    <section id="intro">
+        Amazon Simple Storage Service (Amazon S3) is an object storage service offered by Amazon Web Services (AWS) that provides scalable, secure, and highly available cloud storage for a wide range of data types, such as files, backups, logs, media, and more.
+        Amazon S3 is an object storage service that stores data as objects within buckets. An object is a file and any metadata that describes the file. A bucket is a container for objects.
+    </section>
+
+    <section>
+
+        <h2>Steps to Set Up S3 in AWS</h2>
+        <ul>
+            <li><strong>Create an S3 Bucket:</strong> Define a unique bucket name and select the AWS region where the bucket will be created.</li>
+            <li><strong>Set Bucket Permissions:</strong> Configure permissions to control access to the bucket, using AWS Identity and Access Management (IAM) policies, bucket policies, or Access Control Lists (ACLs).</li>
+            <li><strong>Upload Objects:</strong> Add files or data (called objects) to the bucket, specifying optional metadata, storage class, and encryption settings.</li>
+            <li><strong>Enable Features:</strong> Configure features like versioning, lifecycle policies, cross-region replication, and event notifications to manage the data efficiently.</li>
+            <li><strong>Access and Manage:</strong> Access objects via the S3 console, AWS CLI, SDKs, or APIs, using secure URLs or presigned URLs for controlled sharing.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>How AWS Manages Storage</h2>
+        <p>
+            AWS S3 leverages a globally distributed infrastructure with redundancy across multiple Availability Zones (AZs) to ensure high durability and availability.
+        </p>
+        <h2>Key Features:</h2>
+        <ul>
+            <li><strong>Durability:</strong> Designed for 99.999999999% (11 nines) durability by storing multiple copies of data across facilities.</li>
+            <li><strong>Scalability:</strong> Scales automatically to handle unlimited data and concurrent access requests.</li>
+            <li><strong>Security:</strong> Provides encryption at rest and in transit, fine-grained access control, and audit logging with AWS CloudTrail.</li>
+            <li><strong>Cost-Effectiveness:</strong> Offers multiple storage classes to optimize cost based on access patterns, such as S3 Standard, S3 Glacier, and S3 Intelligent-Tiering.</li>
+        </ul>
+        <p>
+            S3’s architecture ensures that data remains available, durable, and secure, making it ideal for backup, archival, data lakes, and modern application data.
+        </p>
+    </section>
+
+    <section>
+        <h2>Amazon S3 Buckets and Objects</h2>
+        <img src="../ref-images/s3.png" alt="s3">
+        
+    <h3>Bucket</h3>
+    <p>
+        A <strong>bucket</strong> in Amazon S3 is a top-level container that holds your data. Think of it as a logical container for storing objects, similar to a folder or a drive. Each bucket has a globally unique name and is tied to a specific AWS region.
+    </p>
+
+    <h3>Object</h3>
+    <p>
+        An <strong>object</strong> in Amazon S3 is the fundamental storage unit. It consists of two main parts:
+        <ul>
+            <li><strong>Data:</strong> The actual content you want to store, such as a file, image, video, or document.</li>
+            <li><strong>Metadata:</strong> Key-value pairs that describe the object, such as its content type, creation date, custom tags, and permissions.</li>
+        </ul>
+        Each object is uniquely identified within a bucket by a combination of the bucket name and the object key (the unique name you assign to the object).
+    </p>
+
+    <h2>How S3 Stores and Retrieves Data</h2>
+    <img src="../ref-images/s3-flow.png" alt="s3-flow">
+    <p>
+        This diagram shows how Amazon S3 handles data storage and retrieval behind the scenes. When a user interacts with S3 (such as uploading or retrieving an object), the request first goes through the <strong>API Service</strong>, which coordinates the workflow. The API Service passes the data to two key backend components: the <strong>Data Service</strong>, which handles the actual object data, encrypting it (for example, using SSE-S3) and distributing it across multiple <strong>storage nodes</strong> (like Storage Node #1 and #2) for durability and availability; and the <strong>Metadata Service</strong>, which manages all the object’s metadata (such as object name, ID, bucket ID) and writes it into the <strong>Metadata Database</strong>. This separation ensures that S3 can quickly look up objects by their metadata and locate the exact storage location. The combination of data encryption, distributed storage, and a centralized metadata index enables S3 to deliver secure, fast, and scalable object storage — making sure objects are easily retrievable using just the bucket name and object key.
+    </p>
+</section>
+
+    <section>
+    <h2>A Node.js code snippet for creation of a S3 bucket</h2>
+    <img width="60%" src="../ref-images/s3-creation.png" alt="s3-creation">
+    <h2>How to Store and Retrieve Data from a S3 bucket</h2>
+    <img width="60%" src="../ref-images/s3-retriving.png" alt="s3-creation">
+    </section>
+
+
+    <section>
+        <h2>AWS Use Cases for S3</h2>
+
+        <h3>Backup and Restore</h3>
+        <p>Securely store backups and quickly restore critical data in case of disaster recovery or data loss events.</p>
+
+        <h3>Data Archiving</h3>
+        <p>Use cost-effective storage classes like S3 Glacier for long-term retention and regulatory compliance.</p>
+
+        <h3>Big Data Analytics</h3>
+        <p>Build data lakes on S3 to store massive amounts of structured and unstructured data for analysis with AWS analytics services.</p>
+
+        <h3>Static Website Hosting</h3>
+        <p>Host static websites directly from S3 buckets, leveraging scalable and globally distributed infrastructure.</p>
+    </section>
+
+    <!-- Corner links container -->
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+
+    <section class="references">
+        <h2>References</h2>
+            <a target="_blank" href="https://aws.amazon.com/s3/">1.Amazon S3 Official Page</a>
+            <div>
+                2.Images and information about S3
+                <a target="_blank" href="https://medium.com/@joudwawad/aws-s3-deep-dive-1c19ad58af40">AWS S3 Deep Dive</a>
+            </div>
+        
+    </section>
+</body>
+</html>

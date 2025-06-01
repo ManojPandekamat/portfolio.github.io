@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon DynamoDB Service</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon DynamoDB: NoSQL Database Service</h1>
+
+    <section id="intro">
+        Amazon DynamoDB is a fully managed, serverless NoSQL database service that provides fast and predictable performance with seamless scalability. It automatically manages the infrastructure, replication, and partitioning to deliver single-digit millisecond response times at any scale.
+    </section>
+
+    <section>
+        <h2>Architecture of DynamoDB</h2>
+        <img width="60%" src="../ref-images/dynamoDB.png" alt="DynamoDB Architecture" />
+            <h2>DynamoDB Distribution Architecture</h2>
+    <p>
+        In DynamoDB, tables, items, and attributes are the core components you work with. A table is a collection of items, and each item is a collection of attributes.
+    </p>
+
+    <h3>DynamoDB Table Structure</h3>
+    <img width="60%" src="../ref-images/dynamoDB2.png" alt="DynamoDB Architecture" />
+    <p>
+        A DynamoDB table is divided into multiple partitions. This provides two benefits:
+    </p>
+    <ul>
+        <li>Handling more throughput as requests increase.</li>
+        <li>Storing more data as the table grows.</li>
+    </ul>
+    <p>
+        Each partition of the table hosts a part of the table’s key range. For example, if there are 100 keys and 5 partitions, each partition can hold 20 keys.
+    </p>
+
+    <h3>Table Partition Overview</h3>
+    <p>
+        Each partition has multiple replicas distributed across availability zones. Together, these replicas form a replication group, improving the partition’s availability and durability.
+    </p>
+
+    <h3>Replication Group and Multi-AZ Distribution for Data</h3>
+    <p>
+        A replication group consists of:
+    </p>
+    <ul>
+        <li>The write-ahead logs</li>
+        <li>B-tree that stores the key-value data</li>
+    </ul>
+    <p>
+        Additionally, a group can contain replicas that only store write-ahead log entries and not the key-value data. These are called <strong>log replicas</strong>.
+    </p>
+
+    <h3>Consensus and Multi-Paxos</h3>
+    <p>
+        Whenever you replicate data across multiple nodes, guaranteeing consensus becomes a challenge. What if each partition has a different value for a particular key?
+    </p>
+    <p>
+        The replication group uses <strong>Multi-Paxos</strong> for consensus and leader election.
+    </p>
+
+    <h3>Multi-Paxos Consensus Flow</h3>
+    <p>
+        The <strong>leader</strong> is a key player within the replication group:
+    </p>
+    <ul>
+        <li>The leader serves all write requests. On receiving a write request, the leader generates a write-ahead log record and sends it to the other replicas.</li>
+        <li>A write is acknowledged to the application once a quorum of replicas stores the log record to their local write-ahead logs.</li>
+        <li>The leader also serves strongly consistent read requests, while any replica can serve eventually consistent reads.</li>
+    </ul>
+    <p>
+        If the leader goes down, it maintains its leadership using a lease mechanism. If this lease fails and another replica detects the failure, it can propose a new election round to become the new leader.
+    </p>
+        
+    </section>
+
+    <section>
+        <h2>Steps to Set Up DynamoDB in AWS</h2>
+        <ul>
+            <li><strong>Create a Table:</strong> Define table name, primary key attributes (partition key, optionally sort key), and read/write capacity mode.</li>
+            <li><strong>Configure Indexes:</strong> Add global or local secondary indexes if your queries require access patterns beyond the primary key.</li>
+            <li><strong>Set Auto Scaling and Backup:</strong> Enable auto scaling for throughput and configure on-demand backups or point-in-time recovery.</li>
+            <li><strong>Access Control:</strong> Use IAM roles, policies, and VPC endpoints to secure access to your tables.</li>
+            <li><strong>Integrate Applications:</strong> Use AWS SDKs or APIs to connect and perform operations such as GetItem, PutItem, Query, and Scan.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>How AWS Manages DynamoDB</h2>
+        <p>
+            AWS manages the operational aspects of DynamoDB, including hardware provisioning, software patching, replication, failure detection, and recovery, enabling developers to focus on application logic rather than database management.
+        </p>
+        <h2>Key Features:</h2>
+        <ul>
+            <li><strong>Low Latency at Scale:</strong> Consistent single-digit millisecond latency even at massive scale.</li>
+            <li><strong>Fully Managed & Serverless:</strong> No servers to provision or manage, and DynamoDB scales automatically.</li>
+            <li><strong>Event-Driven Integration:</strong> DynamoDB Streams enable real-time triggers for workflows with AWS Lambda.</li>
+            <li><strong>Fine-Grained Security:</strong> Integrates with IAM, supports encryption, and network isolation via VPC endpoints.</li>
+            <li><strong>Flexible Data Model:</strong> Supports key-value and document data models.</li>
+            <li><strong>Global Tables:</strong> Multi-region replication for disaster recovery and low-latency global access.</li>
+        </ul>
+        <p>
+            DynamoDB is ideal for applications requiring massive scale, low latency, and flexible data models, such as gaming, IoT, mobile apps, and real-time bidding platforms.
+        </p>
+    </section>
+
+    <section>
+        <h2>Node.js code snippet for connecting and creating DynamoDB Table</h2>
+        <img width="60%" src="../ref-images/dynamoDB-creation.png" alt="dynamoDB-creation">
+        <h2>Node.js Code Snippet for Connecting and Querying from DynamoDB Table</h2>
+        <img width="60%" src="../ref-images/dynamoDB-query.png" alt="dynamoDB-read">
+    </section>
+
+    <section>
+        <h2>AWS Use Cases for DynamoDB</h2>
+
+        <h3>Gaming Applications</h3>
+        <p>Store player data, leaderboards, and game state with low latency and high throughput.</p>
+
+        <h3>IoT and Telemetry</h3>
+        <p>Ingest and process large volumes of device data with flexible schema and scalable storage.</p>
+
+        <h3>Mobile and Web Apps</h3>
+        <p>Backend for user profiles, session management, and real-time activity tracking.</p>
+
+        <h3>Ad Tech and Real-Time Bidding</h3>
+        <p>Support high-velocity, low-latency read/write workloads for ad delivery and bidding systems.</p>
+    </section>
+
+    <section class="references">
+        <h2>References</h2>
+        <a target="_blank" href="https://aws.amazon.com/dynamodb/">1. Amazon DynamoDB Official Page</a>
+        <div>
+            2. DynamoDB Architecture and Deep Dive
+            <a target="_blank" href="https://medium.com/@joudwawad/dynamodb-architecture-5a38761501a7">AWS Database Blog</a>
+        </div>
+    </section>
+
+    <!-- Corner links container -->
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+</body>
+</html>
