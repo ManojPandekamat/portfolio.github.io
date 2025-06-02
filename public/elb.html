@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon Elastic Load Balancing (ELB)</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon Elastic Load Balancing (ELB) Service</h1>
+
+    <section id="intro">
+        Amazon Elastic Load Balancing (ELB) automatically distributes incoming application traffic across multiple targets, such as Amazon EC2 instances, containers, and IP addresses, in one or more Availability Zones. It helps achieve high availability, fault tolerance, and scalability for your applications.
+    </section>
+
+    <section>
+        <h2>Architecture of ELB</h2>
+        <img width="60%" src="../ref-images/elb.png" alt="ELB Architecture" />
+        
+        <h2>ELB Components</h2>
+        <ul>
+            <li><strong>Load Balancers:</strong> Distribute traffic across registered targets.</li>
+            <li><strong>Listeners:</strong> Check for incoming connection requests and route them to targets based on rules.</li>
+            <li><strong>Target Groups:</strong> A group of EC2 instances, containers, or IPs registered as traffic destinations.</li>
+            <li><strong>Health Checks:</strong> Monitor the health of targets to ensure only healthy ones receive traffic.</li>
+        </ul>
+
+        <h3>Types of Load Balancers</h3>
+        <ul>
+            <li><strong>Application Load Balancer (ALB):</strong> For HTTP/HTTPS traffic; operates at Layer 7 (application layer).</li>
+            <li><strong>Network Load Balancer (NLB):</strong> For TCP, TLS, and UDP traffic; operates at Layer 4 (transport layer).</li>
+            <li><strong>Gateway Load Balancer (GWLB):</strong> For deploying, scaling, and running third-party virtual appliances.</li>
+            <li><strong>Classic Load Balancer (CLB):</strong> Legacy option for EC2 Classic; supports basic Layer 4 and Layer 7 load balancing.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Steps to Set Up ELB in AWS</h2>
+        <ul>
+            <li><strong>Launch EC2 Instances:</strong> Deploy application servers across Availability Zones.</li>
+            <li><strong>Create a Load Balancer:</strong> Choose ALB, NLB, or GWLB and configure listeners.</li>
+            <li><strong>Define Target Groups:</strong> Register targets like EC2, ECS, or Lambda functions.</li>
+            <li><strong>Set Up Health Checks:</strong> Ensure only healthy targets receive traffic.</li>
+            <li><strong>Configure Security:</strong> Use security groups, SSL/TLS, and WAF for protection.</li>
+            <li><strong>Monitor and Scale:</strong> Use CloudWatch metrics, auto-scaling, and logging for optimization.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Key Features of ELB</h2>
+        <ul>
+            <li><strong>Automatic Scaling:</strong> Handles variable workloads without manual intervention.</li>
+            <li><strong>High Availability:</strong> Distributes traffic across multiple AZs.</li>
+            <li><strong>Security:</strong> Integrates with AWS Certificate Manager (ACM), WAF, and Shield.</li>
+            <li><strong>Flexible Routing:</strong> Supports path-based and host-based routing (ALB).</li>
+            <li><strong>Integrated Monitoring:</strong> Provides CloudWatch metrics and access logs.</li>
+            <li><strong>Cost-Effective:</strong> Pay only for what you use.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>AWS Use Cases for ELB</h2>
+        <h3>Web Application Load Balancing</h3>
+        <p>Distribute incoming HTTP/HTTPS traffic to backend EC2 instances.</p>
+
+        <h3>Microservices Architecture</h3>
+        <p>Use ALB with ECS or EKS to route requests to different microservices.</p>
+
+        <h3>Real-time Applications</h3>
+        <p>Handle high-performance TCP and UDP workloads using NLB.</p>
+
+        <h3>Third-party Virtual Appliances</h3>
+        <p>Deploy and scale virtual appliances using Gateway Load Balancer.</p>
+    </section>
+
+    <section class="references">
+        <h2>References</h2>
+        <a target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html">1. Amazon ELB Official Page</a>
+        <div>
+           
+            <a target="_blank" href="https://medium.com/@davidmcc9568/elastic-load-balancing-on-aws-quick-guide-7b14a081873b">2. AWS Quick Guide: Elastic Load Balancing</a>
+        </div>
+    </section>
+
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+</body>
+</html>

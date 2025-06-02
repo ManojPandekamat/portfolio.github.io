@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon VPC Service</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon VPC: Virtual Private Cloud Service</h1>
+
+    <section id="intro">
+        Amazon Virtual Private Cloud (Amazon VPC) lets you provision a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including selection of your own IP address range, creation of subnets, and configuration of route tables and network gateways.
+    </section>
+
+    <section>
+        <h2>Architecture of Amazon VPC</h2>
+        <img width="60%" src="../ref-images/vpc.png" alt="VPC Architecture" />
+        
+        <h2>VPC Components</h2>
+        <p>
+            A VPC consists of multiple components:
+        </p>
+        <ul>
+            <li><strong>Subnets:</strong> Divide the VPC into smaller network segments.</li>
+            <li><strong>Route Tables:</strong> Control traffic routing within the VPC.</li>
+            <li><strong>Internet Gateway (IGW):</strong> Enables communication between instances in the VPC and the internet.</li>
+            <li><strong>NAT Gateway:</strong> Allows private instances to access the internet without being directly reachable.</li>
+            <li><strong>Security Groups & NACLs:</strong> Provide traffic filtering and security controls.</li>
+            <li><strong>VPC Peering:</strong> Connects VPCs for private communication across AWS accounts or regions.</li>
+        </ul>
+
+        <h3>Subnets and Availability Zones</h3>
+        <p>
+            Subnets can be public (accessible from the internet) or private (restricted to internal AWS traffic). Best practice is to distribute subnets across multiple Availability Zones (AZs) for high availability.
+        </p>
+
+        <h3>Routing and Gateways</h3>
+        <p>
+            Each subnet is associated with a route table that determines where network traffic is directed. Adding an Internet Gateway to the route table makes a subnet public, while using a NAT Gateway allows outbound-only internet access for private subnets.
+        </p>
+    </section>
+
+    <section>
+        <h2>Steps to Set Up a VPC in AWS</h2>
+        <ul>
+            <li><strong>Create a VPC:</strong> Define a CIDR block (e.g., 10.0.0.0/16) for the VPC.</li>
+            <li><strong>Create Subnets:</strong> Divide the CIDR into public and private subnets across different AZs.</li>
+            <li><strong>Configure Route Tables:</strong> Set up routes for internal communication and internet/NAT gateways.</li>
+            <li><strong>Attach Internet Gateway:</strong> Enable internet access for public subnets.</li>
+            <li><strong>Set Up Security:</strong> Define security groups and network ACLs to control traffic.</li>
+            <li><strong>Launch Instances:</strong> Deploy EC2 or other services inside the VPC, associating them with the correct subnets and security groups.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>How AWS Manages VPC</h2>
+        <p>
+            AWS provides the infrastructure and networking backbone, but you manage your VPC configurations. This includes subnetting, routing, firewall rules, and resource placement, while AWS ensures high availability and durability of the underlying hardware.
+        </p>
+        <h2>Key Features:</h2>
+        <ul>
+            <li><strong>Isolation:</strong> Completely isolated network environments.</li>
+            <li><strong>Customization:</strong> Define IP ranges, subnets, and routing as per your needs.</li>
+            <li><strong>Scalability:</strong> Easily add new subnets, gateways, and peering connections as workloads grow.</li>
+            <li><strong>Security:</strong> Fine-grained control over inbound/outbound traffic using security groups and NACLs.</li>
+            <li><strong>Integration:</strong> Seamless integration with AWS services like EC2, RDS, Lambda, and more.</li>
+            <li><strong>Global Reach:</strong> Use VPC peering and Transit Gateway for inter-region and cross-account connections.</li>
+        </ul>
+        <p>
+            Amazon VPC is ideal for hosting secure web applications, hybrid cloud architectures, disaster recovery setups, and microservices with strict networking controls.
+        </p>
+    </section>
+
+    <section>
+        <h2>Node.js Snippet for Creating a VPC</h2>
+        <img width="60%" src="../ref-images/vpc-creation.png" alt="VPC Terraform Code">
+    </section>
+
+    <section>
+        <h2>AWS Use Cases for VPC</h2>
+
+        <h3>Secure Web Applications</h3>
+        <p>Run web servers in public subnets with backend databases in private subnets for maximum security.</p>
+
+        <h3>Hybrid Cloud Deployments</h3>
+        <p>Connect on-premises data centers to AWS over VPN or Direct Connect for hybrid workloads.</p>
+
+        <h3>Disaster Recovery</h3>
+        <p>Set up standby environments in AWS for failover during on-premises outages.</p>
+
+        <h3>Microservices and Containerized Workloads</h3>
+        <p>Host microservices using ECS, EKS, or Lambda inside a secure VPC environment.</p>
+    </section>
+
+    <section class="references">
+        <h2>References</h2>
+        <a target="_blank" href="https://aws.amazon.com/vpc/">1. Amazon VPC Official Page</a>
+        <div>
+            2. Deep Dive into VPC
+            <a target="_blank" href="https://medium.com/@AlexanderObregon/deep-dive-into-amazon-virtual-private-cloud-vpc-understanding-the-core-features-60a83cc806db">AWS Networking Blog</a>
+        </div>
+    </section>
+
+    <!-- Corner links container -->
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+</body>
+</html>

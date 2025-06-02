@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon CloudFront Service</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon CloudFront: Content Delivery Network (CDN) Service</h1>
+
+    <section id="intro">
+        Amazon CloudFront is a fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to users globally with low latency and high transfer speeds. It integrates with AWS services like S3, EC2, and Lambda@Edge, offering a highly customizable and scalable delivery system.
+    </section>
+
+    <section>
+        <h2>Architecture of Amazon CloudFront</h2>
+        <img width="60%" src="../ref-images/cloudFront.png" alt="CloudFront Architecture" />
+        
+        <h2>CloudFront Components</h2>
+        <p>
+            CloudFront consists of several key components:
+        </p>
+        <ul>
+            <li><strong>Distributions:</strong> Specify the origin (source) and settings for delivering your content.</li>
+            <li><strong>Origins:</strong> The source of the content, such as S3 buckets, EC2 instances, or external servers.</li>
+            <li><strong>Edge Locations:</strong> Global network of data centers that cache and serve content closer to users.</li>
+            <li><strong>Cache Behaviors:</strong> Define how CloudFront handles requests and caching for different URLs or paths.</li>
+            <li><strong>Invalidations:</strong> Allow you to remove or update cached content before it expires.</li>
+            <li><strong>Lambda@Edge:</strong> Run custom code at CloudFront edge locations to modify requests and responses.</li>
+        </ul>
+
+        <h3>Global Distribution</h3>
+ <p>
+        This diagram illustrates how Amazon CloudFront functions as a global content delivery network (CDN) to accelerate the delivery of static and dynamic content to end users. When user traffic arrives, it first reaches the 
+        <strong>nearest AWS Edge Location</strong>, where Amazon CloudFront caches and serves content, and 
+        <strong>CloudFront Functions</strong> provide ultra-low-latency serverless logic (under 1 millisecond) for lightweight request and response processing.
+    </p>
+    <p>
+        Traffic may then pass through 
+        <strong>Regional Edge Caches</strong>, which are globally distributed mid-tier caches designed for longer cache retention, improving the cache-hit ratio and reducing the load on origin servers. 
+        Using 
+        <strong>Origin Shield</strong>, you can further improve performance and resilience by adding an additional centralized caching layer.
+    </p>
+    <p>
+        Finally, the request reaches the 
+        <strong>application content origin</strong>, which could be services like Amazon S3, EC2, API Gateway, Elastic Load Balancing, AWS Media Services, or even on-premises servers. Throughout the process, 
+        <strong>AWS Shield</strong> and 
+        <strong>AWS WAF</strong> provide integrated protection against DDoS attacks and web application security threats, ensuring optimized, secure, and high-performance content delivery to global users.
+    </p>
+
+        <h3>Security and Access Control</h3>
+        <p>
+            CloudFront integrates with AWS WAF, Shield, and IAM to provide DDoS protection, web application security, and fine-grained access controls.
+        </p>
+    </section>
+
+    <section>
+        <h2>Steps to Set Up CloudFront in AWS</h2>
+        <ul>
+            <li><strong>Create an S3 Bucket or Use an Existing Origin:</strong> Store the content you want to distribute.</li>
+            <li><strong>Create a CloudFront Distribution:</strong> Define origin, caching settings, and behaviors.</li>
+            <li><strong>Configure Cache Behaviors:</strong> Specify which files to cache and how to handle requests.</li>
+            <li><strong>Set Up SSL and Custom Domain:</strong> Secure delivery with HTTPS and configure custom domain names if needed.</li>
+            <li><strong>Deploy and Test:</strong> Deploy the distribution, test URLs, and verify performance improvements.</li>
+            <li><strong>Monitor and Optimize:</strong> Use CloudFront metrics and logs to track performance and optimize cache settings.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>How AWS Manages CloudFront</h2>
+        <p>
+            AWS handles the global infrastructure, ensuring availability, scaling, and reliability, while you control cache settings, origins, behaviors, and security configurations.
+        </p>
+        <h2>Key Features:</h2>
+        <ul>
+            <li><strong>Global Edge Network:</strong> Hundreds of edge locations worldwide for fast delivery.</li>
+            <li><strong>Customizable Caching:</strong> Fine-tune TTLs, invalidations, and cache policies.</li>
+            <li><strong>Security:</strong> DDoS protection, WAF integration, and SSL/TLS encryption.</li>
+            <li><strong>Integration:</strong> Seamless integration with AWS services and third-party origins.</li>
+            <li><strong>Programmability:</strong> Modify requests and responses using Lambda@Edge.</li>
+            <li><strong>Cost-Effective:</strong> Pay-as-you-go pricing based on usage.</li>
+        </ul>
+        <p>
+            CloudFront is ideal for streaming media, delivering static and dynamic websites, securing APIs, and offloading origin servers.
+        </p>
+    </section>
+
+    <section>
+        <h2>AWS Use Cases for CloudFront</h2>
+
+        <h3>Static Website Hosting</h3>
+        <p>Deliver static assets like HTML, CSS, JS, and images with low latency using S3 + CloudFront.</p>
+
+        <h3>Video Streaming</h3>
+        <p>Stream on-demand or live video content efficiently to a global audience.</p>
+
+        <h3>API Acceleration</h3>
+        <p>Improve API performance and security with CloudFront caching and AWS WAF integration.</p>
+
+        <h3>Dynamic Content Delivery</h3>
+        <p>Serve dynamic web applications by caching portions of dynamic responses at the edge.</p>
+    </section>
+
+    <section class="references">
+        <h2>References</h2>
+        <a target="_blank" href="https://aws.amazon.com/cloudfront/">1. Amazon CloudFront Official Page</a>
+        <div>
+            2. CloudFront Developer Guide
+            <a target="_blank" href="https://www.geeksforgeeks.org/aws-cloudfront/">geeksforgeeks</a>
+        </div>
+    </section>
+
+    <!-- Corner links container -->
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon SageMaker (ML Service)</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 id="title">Amazon SageMaker: Machine Learning Service</h1>
+
+    <section id="intro">
+        Amazon SageMaker is a fully managed machine learning (ML) service that enables developers and data scientists to build, train, and deploy ML models quickly and at scale. It offers integrated Jupyter notebooks, automated model tuning, and one-click deployment to production.
+    </section>
+
+    <section>
+        <h2>Architecture of SageMaker</h2>
+        <img width="60%" src="../ref-images/sagemaker.png" alt="SageMaker Architecture" />
+        
+        <h2>SageMaker Components</h2>
+        <ul>
+            <li><strong>Notebook Instances:</strong> Fully managed Jupyter notebooks for data exploration and preprocessing.</li>
+            <li><strong>Training Jobs:</strong> Run distributed training on managed infrastructure using built-in or custom algorithms.</li>
+            <li><strong>Model Hosting:</strong> Deploy ML models at scale with built-in endpoints for real-time or batch predictions.</li>
+            <li><strong>Ground Truth:</strong> Automate data labeling with human review for training datasets.</li>
+            <li><strong>Model Registry:</strong> Store, version, and manage ML models for reproducibility and governance.</li>
+            <li><strong>Experiments:</strong> Track ML runs, compare results, and organize trials systematically.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Steps to Use SageMaker in AWS</h2>
+        <ul>
+            <li><strong>Prepare Data:</strong> Upload datasets to S3 for easy access during training.</li>
+            <li><strong>Create a Notebook Instance:</strong> Launch Jupyter notebooks to explore and process data.</li>
+            <li><strong>Define and Train Model:</strong> Use built-in or custom algorithms for training jobs.</li>
+            <li><strong>Evaluate Model:</strong> Test performance using validation datasets.</li>
+            <li><strong>Deploy Model:</strong> Set up SageMaker endpoints for real-time or batch inference.</li>
+            <li><strong>Monitor and Optimize:</strong> Use CloudWatch and SageMaker Debugger to track performance and tune models.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Key Features of SageMaker</h2>
+        <ul>
+            <li><strong>Fully Managed:</strong> Eliminates the need to set up and manage ML infrastructure.</li>
+            <li><strong>Built-in Algorithms:</strong> Access pre-built ML algorithms optimized for performance.</li>
+            <li><strong>Automatic Model Tuning:</strong> Hyperparameter optimization for better results.</li>
+            <li><strong>Scalable:</strong> Train on distributed GPU/CPU clusters; deploy on scalable endpoints.</li>
+            <li><strong>Integrated Tools:</strong> Built-in experiment tracking, pipelines, and model monitoring.</li>
+            <li><strong>Secure:</strong> Integration with IAM, VPC, KMS, and encryption for data security.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>AWS Use Cases for SageMaker</h2>
+        <h3>Predictive Analytics</h3>
+        <p>Build models for demand forecasting, customer churn, and risk analysis.</p>
+
+        <h3>Computer Vision</h3>
+        <p>Train models for image classification, object detection, and medical imaging.</p>
+
+        <h3>Natural Language Processing</h3>
+        <p>Develop text classification, sentiment analysis, and chatbot applications.</p>
+
+        <h3>Recommendation Systems</h3>
+        <p>Build personalized recommendation engines for products or content.</p>
+    </section>
+
+    <section class="references">
+        <h2>References</h2>
+        <a target="_blank" href="https://aws.amazon.com/sagemaker/">1. Amazon SageMaker Official Page</a>
+        <div>
+            <a target="_blank" href="https://medium.com/@jayyanar/aws-sagemaker-referencearchitecture-for-mlops-8a98047bf969">2.aws-sagemaker-referencearchitecture-for-mlops</a>
+        </div>
+    </section>
+
+    <div id="corner-links">
+        <a href="../index.html#Business-cases">Home</a>
+        <a href="#title" id="top-link">Top</a>
+    </div>
+</body>
+</html>

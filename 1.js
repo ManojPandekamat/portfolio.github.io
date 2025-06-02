@@ -1,30 +1,27 @@
-const AWS = require('aws-sdk');
+import { EC2Client, CreateVpcCommand } from "@aws-sdk/client-ec2";
 
-AWS.config.update({
-    region: 'us-east-1' 
-});
-const docClient = new AWS.DynamoDB.DocumentClient();
+// Initialize the EC2 client
+const client = new EC2Client({ region: "us-east-1" });
 
-const queryTable = async () => {
+async function createVpc() {
     const params = {
-        TableName: 'Movies',
-        KeyConditionExpression: '#yr = :yyyy',
-        ExpressionAttributeNames: {
-            '#yr': 'year'
-        },
-        ExpressionAttributeValues: {
-            ':yyyy': 2024
-        }
+        CidrBlock: "10.0.0.0/16",  // Define the CIDR block for your VPC
+        TagSpecifications: [
+            {
+                ResourceType: "vpc",
+                Tags: [
+                    { Key: "Name", Value: "MyVPC" }
+                ]
+            }
+        ]
     };
 
     try {
-        const data = await docClient.query(params).promise();
-        console.log('Query succeeded:', data.Items);
+        const data = await client.send(new CreateVpcCommand(params));
+        console.log("VPC Created! VPC ID:", data.Vpc.VpcId);
     } catch (err) {
-        console.error('Unable to query. Error:', JSON.stringify(err, null, 2));
+        console.error("Failed to create VPC:", err);
     }
-};
+}
 
-(async () => {
-    await queryTable();
-})();
+createVpc();
