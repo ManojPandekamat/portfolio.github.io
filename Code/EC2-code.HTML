@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EC2 Stable Resource Problem</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+<section>
+    <h2>Resource Allocation Using Stable Marriage Problem</h2>
+    <p>
+        This method applies the <strong>Stable Marriage Problem</strong> algorithm to intelligently allocate virtual machines (VMs) to physical EC2 hosts. Each VM ranks hosts based on available resources, while each host ranks VMs based on how lightweight they are. The Gale-Shapley algorithm ensures a stable outcome, where no VM-host pair would prefer to switch from their current match.
+    </p>
+</section>
+
+<section>
+    <h2>Scoring Formulas for Preference Lists</h2>
+    <p>
+        Both VMs and EC2 hosts use custom scoring formulas to generate their preference lists before executing the Stable Marriage algorithm.
+    </p>
+
+    <h3>1. Host Suitability (VM’s Preference over Hosts)</h3>
+    <p>
+        Each VM calculates how suitable a host is based on its available resources and current load:
+    </p>
+    <pre><code>
+// Higher Host Score means better suitability for the VM
+hostScore = (availableCpu + availableRam) / currentVms;
+
+// Avoid divide by zero
+if (currentVms == 0) currentVms = 1;
+    </code></pre>
+    <p>
+        This score gives preference to hosts with more free CPU and RAM and fewer existing VMs, ensuring better balance.
+    </p>
+
+    <h3>2. VM Suitability (Host’s Preference over VMs)</h3>
+    <p>
+        Hosts prefer lightweight VMs that consume fewer resources. Here's how they score each VM:
+    </p>
+    <pre><code>
+// Lower VM Score is better (more lightweight)
+vmScore =( (requiredCpu ) + (requiredRam ) )/ Total_Hosts;
+
+
+    </code></pre>
+    <p>
+        For instance,If there are 3 VMs need to be allocated, a VM needing 2 CPU and 4 GB RAM gets a score of <code>(2 + 4)/3 = 2</code>. Hosts sort VMs in ascending order of this score, favoring smaller VMs to optimize their resource usage.
+    </p>
+</section>
+
+
+<section>
+    <h2>Sample Java Code for this Approach</h2>
+    <img src="../code-images/ec2_resource_problem.png" alt="Java code sample for EC2 resource allocation using stable marriage problem" />
+</section>
+
+<section>
+    <h2>Sample Output Explanation</h2>
+    <img src="../code-images/ec2_resource_problem_output.png" alt="Sample output of EC2 resource allocation" />
+    <p>
+        The output shows how the VMs are matched to hosts using preference scores. Initially, VMs generate their preference lists by comparing host scores, which are calculated based on free CPU and RAM. Similarly, hosts rank VMs by how few resources they demand. As the algorithm runs, VMs propose to hosts in their preferred order. If a host is already full but prefers a new VM over one it has, it will accept the new VM and reject the older one. This process continues until no further improvements are possible. In the end, the assignments are stable, with each VM allocated to the most suitable host without any host-VM pair wanting to swap.
+    </p>
+</section>
+
+<section>
+    <h2>Time and Space Complexity</h2>
+    <p>
+        <strong>Time Complexity:</strong> O(n × m), where n is the number of VMs and m is the number of hosts, because each VM may propose to each host once.<br><br>
+        <strong>Space Complexity:</strong> O(n × m) for preference storage, plus O(n + m) for queues and final assignments.
+    </p>
+</section>
+
+<section>
+    <h2>Code File</h2>
+    <p style="text-align:center;">
+        View the full Java source code here:<br>
+        <a href="https://github.com/manojpandekamat/portfolio.github.io/blob/main/Code-Samples/EC2_Resource_allocation.java" target="_blank">
+            <strong>EC2_Resource_allocation.java on GitHub</strong>
+        </a>
+    </p>
+</section>
+
+
+
+
+<div class="nav-buttons">
+    <a href="#top" class="btn">↑ Top</a>
+    <a href="/public/ec2.html#smart-allocation" class="btn">🏠 Home</a>
+</div>
+
+</body>
+</html>

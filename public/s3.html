@@ -26,6 +26,9 @@
         </ul>
     </section>
 
+
+
+
     <section>
         <h2>How AWS Manages Storage</h2>
         <p>
@@ -42,6 +45,7 @@
             S3’s architecture ensures that data remains available, durable, and secure, making it ideal for backup, archival, data lakes, and modern application data.
         </p>
     </section>
+
 
     <section>
         <h2>Amazon S3 Buckets and Objects</h2>
@@ -68,6 +72,21 @@
         This diagram shows how Amazon S3 handles data storage and retrieval behind the scenes. When a user interacts with S3 (such as uploading or retrieving an object), the request first goes through the <strong>API Service</strong>, which coordinates the workflow. The API Service passes the data to two key backend components: the <strong>Data Service</strong>, which handles the actual object data, encrypting it (for example, using SSE-S3) and distributing it across multiple <strong>storage nodes</strong> (like Storage Node #1 and #2) for durability and availability; and the <strong>Metadata Service</strong>, which manages all the object’s metadata (such as object name, ID, bucket ID) and writes it into the <strong>Metadata Database</strong>. This separation ensures that S3 can quickly look up objects by their metadata and locate the exact storage location. The combination of data encryption, distributed storage, and a centralized metadata index enables S3 to deliver secure, fast, and scalable object storage — making sure objects are easily retrievable using just the bucket name and object key.
     </p>
 </section>
+
+<section id="consistent-hashing">
+    <h2>Consistent Hashing-Based Lookup</h2>
+    <p>
+        Curious how AWS-like distributed systems manage resource lookups efficiently?
+        Dive into how <strong>Consistent Hashing</strong> helps in minimizing re-distribution and balancing
+        when nodes or data buckets change dynamically.
+    </p>
+    <p style="text-align:center;">
+        <a id="btn" href="../Code/S3-code.html">
+            View Consistent Hashing Approach
+        </a>
+    </p>
+</section>
+
 
     <section>
     <h2>A Node.js code snippet for creation of a S3 bucket</h2>

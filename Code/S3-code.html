@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>S3 Bucket Lookup Using Consistent Hashing</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body id="top">
+
+<section>
+    <h2>S3 Bucket Lookup Using Consistent Hashing</h2>
+    <p>
+        Amazon S3 uses <strong>consistent hashing</strong> to distribute bucket names evenly across storage nodes. This technique helps achieve efficient, scalable, and fault-tolerant bucket lookups by mapping buckets and nodes on a hash ring. It minimizes remapping when nodes are added or removed, ensuring fast access to buckets.
+    </p>
+</section>
+
+<section>
+    <h2>How Consistent Hashing Works</h2>
+    <p>
+        Both storage nodes and bucket names are hashed onto the same circular space called a <em>hash ring</em>. Each bucket is assigned to the next node clockwise on the ring, distributing load evenly.
+    </p>
+    <p>
+        When nodes join or leave, only a small subset of buckets move to new nodes, minimizing data movement and lookup disruption.
+    </p>
+</section>
+
+<section>
+    <h2>Steps to Map Buckets to Nodes</h2>
+    <ul>
+        <li>Hash each node identifier multiple times to create virtual nodes, spreading them around the ring.</li>
+        <li>Hash each bucket name to find its position on the ring.</li>
+        <li>Assign the bucket to the first virtual node found clockwise on the ring.</li>
+        <li>If a node is removed, buckets mapped to it are reassigned to the next virtual node clockwise.</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>Sample Python Code</h2>
+    <img src="../code-images/s3.png" alt="Python code sample for S3 bucket lookup with consistent hashing" style="max-width:100%; height:auto;" />
+</section>
+
+
+<section>
+    <h2>Visual Representation</h2>
+    <pre>
+       Hash Ring (circle)
+
+    vnode N1#0  ●--------------------● vnode N3#1
+               ↑                     ↑
+               |                     |
+         bucket-A               bucket-B
+               ↓                     ↓
+    vnode N2#2  ●                 ● vnode N1#2
+
+    Arrows show bucket hash positions pointing clockwise to assigned nodes.
+    </pre>
+</section>
+
+
+<section>
+    <h2>Time and Space Complexity of Consistent Hashing</h2>
+    <p>
+        <strong>Time Complexity:</strong><br />
+        <ul>
+            <li><strong>Lookup time:</strong> O(log N) — The ring structure uses a sorted data structure allowing fast binary search to find the node responsible for a given bucket.</li>
+            <li><strong>Adding or removing nodes:</strong> O(K log N) — Each physical node is represented by K virtual nodes. Updating the ring involves inserting or deleting these virtual nodes efficiently.</li>
+        </ul>
+    </p>
+    <p>
+        <strong>Space Complexity:</strong><br />
+        <ul>
+            <li>O(N × K) — The ring stores K virtual nodes for each of the N physical nodes to ensure even distribution.</li>
+            <li>Additional space is required for storing metadata of the M buckets managed by the system.</li>
+        </ul>
+    </p>
+    <p>
+        Where:<br />
+        <strong>N</strong> = Number of physical nodes (servers)<br />
+        <strong>K</strong> = Number of virtual nodes per physical node<br />
+        <strong>M</strong> = Number of buckets or objects stored
+    </p>
+</section>
+
+<section>
+    <h2>Consistent Hashing Implementation (Python)</h2>
+    <p style="text-align:center;">
+        View the full Python source code for consistent hashing here:<br />
+        <a href="https://github.com/manojpandekamat/portfolio.github.io/blob/main/Code-Samples/consistent_hashing.py" target="_blank" style="color:#3498db; text-decoration:none;">
+            <strong>consistent_hashing.py on GitHub</strong>
+        </a>
+    </p>
+</section>
+
+
+<div class="nav-buttons">
+    <a href="#top" class="btn">↑ </a>
+    <a href="/public/s3.html#consistent-hashing" class="btn">Home</a>
+</div>
+
+</body>
+</html>
