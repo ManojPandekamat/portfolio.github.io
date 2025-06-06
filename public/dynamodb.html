@@ -112,27 +112,125 @@
     </section>
 
     <section>
-        <h2>AWS Use Cases for DynamoDB</h2>
+        <h2>Business Use Cases for DynamoDB</h2>
 
-        <h3>Gaming Applications</h3>
-        <p>Store player data, leaderboards, and game state with low latency and high throughput.</p>
+        <h2>1. Gaming Applications</h2>
+        <img height="100%" width="100%" src="../ref-images/dynamoDB_rockset.png" alt="dynamoRockset">
+        <div style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;">
 
-        <h3>IoT and Telemetry</h3>
-        <p>Ingest and process large volumes of device data with flexible schema and scalable storage.</p>
+  <h2 style="color:#2d3748;">🚀 Real-Time Leaderboards with DynamoDB + Rockset</h2>
 
-        <h3>Mobile and Web Apps</h3>
+  <div style="margin-top: 16px;">
+    <h3 style="color:#4a5568;">🔹 Why Use DynamoDB?</h3>
+    <ul>
+      <li>Serverless NoSQL database designed for massive write throughput.</li>
+      <li>Used to store real-time gameplay data like player scores, match stats.</li>
+      <li>Scales automatically to handle millions of write requests per second.</li>
+    </ul>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <h3 style="color:#4a5568;">🔹 Why Add Rockset?</h3>
+    <ul>
+      <li>Rockset connects via DynamoDB Streams and syncs data in real-time.</li>
+      <li>Indexes all ingested data for low-latency search, filtering, and joins.</li>
+      <li>Supports full SQL on semi-structured DynamoDB data — no schema setup required.</li>
+      <li>Ideal for building leaderboards, analytics dashboards, and real-time alerts.</li>
+    </ul>
+  </div>
+
+
+
+  <div style="margin-top: 16px;">
+    <h3 style="color:#4a5568;">🔹 How It Works</h3>
+    <p>
+      Player data is written to DynamoDB → DynamoDB Streams capture changes → Rockset ingests and indexes updates within 1 second → Developers query the data using SQL for instant results.
+    </p>
+  </div>
+
+    <h3>🔹 A sample code snippet for retriving top 10 Players from leaderboard</h3>
+    <img  src="../code-images/dynamoDB_rockset.png" alt="img">
+
+
+  <div style="margin-top: 16px;">
+    <h3 style="color:#4a5568;">🔹 Benefits</h3>
+    <ul>
+      <li>No need for complex ETL or data pipelines.</li>
+      <li>Scalable, serverless setup — no infrastructure to manage.</li>
+      <li>Supports dynamic analytics as game logic or ranking criteria evolve.</li>
+    </ul>
+  </div>
+</div>
+
+
+        <h2>2. IoT and Telemetry</h2>
+
+<div  style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;">
+
+  <h2 style="color: #2c3e50;">DynamoDB Table Setup for IoT Data</h2>
+  <img src="../code-images/dynamoDBIOT1.png" alt="IOT1">
+  <p>
+    A DynamoDB table named <strong>wx_data</strong> is created to store data from IoT devices. 
+    The table uses a composite primary key consisting of <em>sample_time</em> (partition key) and <em>device_id</em> (sort key). 
+  </p>
+  <p>
+    The <em>sample_time</em> represents the timestamp when the data was recorded, while <em>device_id</em> uniquely identifies the device sending the data.
+    This structure allows efficient storage and retrieval of time-series data from multiple devices.
+  </p>
+  <p>
+    Sensor readings and other device information are stored under the attribute <strong>device_data</strong>, which holds the flattened JSON data from each device.
+  </p>
+
+  <h2 style="color: #2c3e50; margin-top: 24px;">AWS IoT Rule for Data Ingestion</h2>
+  <img src="../code-images/dynamoDBIOT2.png" alt="IOT1">
+  
+  <p>
+    An AWS IoT rule is configured to listen for MQTT messages published on topics matching <em>device/+/data</em>. 
+    The plus symbol (+) is a wildcard that captures data from all devices.
+  </p>
+  <p>
+    The rule extracts sensor data fields from the message payload and uses substitution templates to assign <em>sample_time</em> from the current timestamp and <em>device_id</em> parsed from the MQTT topic.
+  </p>
+  <p>
+    This processed data is then inserted into the DynamoDB table in real time, using an IAM role with appropriate permissions for secure access.
+  </p>
+
+  <h2 style="color: #2c3e50; margin-top: 24px;">Data Flow and Benefits</h2>
+    <img src="../code-images/DynamoDBIOT3.png" alt="IOT1">
+  <p>
+    IoT devices publish sensor data continuously, which is captured and transformed by AWS IoT before being stored in DynamoDB.
+  </p>
+  <p>
+    This serverless architecture scales automatically to handle millions of messages without infrastructure management, enabling real-time analytics and monitoring.
+  </p>
+
+</div>
+
+
+
+        <!-- <h3>Mobile and Web Apps</h3>
         <p>Backend for user profiles, session management, and real-time activity tracking.</p>
 
         <h3>Ad Tech and Real-Time Bidding</h3>
-        <p>Support high-velocity, low-latency read/write workloads for ad delivery and bidding systems.</p>
+        <p>Support high-velocity, low-latency read/write workloads for ad delivery and bidding systems.</p> -->
     </section>
 
     <section class="references">
         <h2>References</h2>
         <a target="_blank" href="https://aws.amazon.com/dynamodb/">1. Amazon DynamoDB Official Page</a>
         <div>
-            2. DynamoDB Architecture and Deep Dive
-            <a target="_blank" href="https://medium.com/@joudwawad/dynamodb-architecture-5a38761501a7">AWS Database Blog</a>
+           
+            <a target="_blank" href="https://medium.com/@joudwawad/dynamodb-architecture-5a38761501a7"> 2. DynamoDB Architecture and Deep Dive</a>
+        </div>
+        <div>
+            <a target="_blank" href="https://medium.com/rocksetcloud/scaling-real-time-gaming-leaderboards-with-dynamodb-and-rockset-3701d6496b3b">  3. Using DynamoDB for Realtime gaming leaderboards</a>
+        </div>
+        <div>
+
+            <a target="_blank" href="https://medium.com/rocksetcloud/scaling-real-time-gaming-leaderboards-with-dynamodb-and-rockset-3701d6496b3b">  4. IoT Telemetry Image</a>
+            </div>
+            <div>
+            <a target="_blank" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-ddb-rule.html">  5. AWS IoT telemetry using DynamoDB</a>
         </div>
     </section>
 

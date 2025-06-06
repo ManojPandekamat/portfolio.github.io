@@ -58,19 +58,54 @@
         </ul>
     </section>
 
+    <section id="elb-routing-algorithms">
+  <h2>Request Routing Algorithms in AWS Load Balancers</h2>
+ <br>
+  <strong>Round Robin</strong>
+  <img src="../code-images/roundRobin.png" alt="elb-rr">
+  
+  <p> is a simple and widely used algorithm implemented in <em>Application Load Balancers (ALB)</em> and <em>Classic Load Balancers (CLB - TCP)</em>. It routes each incoming request to the next available target in a circular order. This method works best when all targets have similar processing power and response time, as it doesn't account for load or performance differences between instances.</p>
+  <br>
+  <strong>Least Outstanding Requests (LOR)</strong>
+  <img src="../code-images/lor.png" alt="elb-lor">
+  <p> is available in <em>CLB (HTTP/HTTPS)</em> and optionally in <em>ALB</em>. It directs traffic to the target that currently has the fewest active or pending requests. This algorithm dynamically balances the load, making it particularly useful in environments where application targets handle requests with varying durations or resource usage, improving responsiveness and throughput.</p>
+  <br>
+  <strong>Flow Hash (5-tuple Hashing)</strong>
+  <img src="../code-images/flowHash.png" alt="elb-flowhash">
+  
+  <p> is employed by <em>Network Load Balancers (NLB)</em> and <em>Gateway Load Balancers (GWLB)</em>. It uses a consistent hashing mechanism based on five parameters—source IP, source port, destination IP, destination port, and protocol. This ensures that packets from a specific client connection always go to the same backend target, which is essential for maintaining stateful TCP or UDP sessions without requiring sticky session logic.</p>
+  <br>
+  <strong>Sticky Sessions (Session Affinity)</strong>
+  
+  <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);" src="https://smjeon.dev/assets/img/loadbalancing/sticky-session.gif" width="267" height="200">
+
+  <p> is a mechanism supported by both <em>CLB</em> and <em>ALB</em> to bind a user session to a specific target for the duration of a session. ALB achieves this through application-based cookies, while CLB uses source IP affinity. This is particularly beneficial for applications that store session data locally on an instance, ensuring continuity for end-users even during multiple subsequent requests.</p>
+
+</section>
+
     <section>
         <h2>AWS Use Cases for ELB</h2>
-        <h3>Web Application Load Balancing</h3>
-        <p>Distribute incoming HTTP/HTTPS traffic to backend EC2 instances.</p>
+        <h3>1. Web Application Load Balancing</h3>
+        <div
+        style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;">
 
-        <h3>Microservices Architecture</h3>
-        <p>Use ALB with ECS or EKS to route requests to different microservices.</p>
+            <img src="../code-images/web-loadbalancing.png" alt="elb">
+            <p>
+                To enable scalable and highly available web application hosting on AWS, you need to deploy your application on EC2 instances and create an Amazon Machine Image (AMI) as a template for replication. An Elastic Load Balancer (ELB) is configured to distribute incoming traffic evenly across multiple instances across different availability zones, ensuring fault tolerance and load distribution. An Auto Scaling group is then set up to automatically adjust the number of running instances based on real-time demand and CPU utilization metrics, allowing the system to scale out during high traffic and scale in to save costs when demand decreases. Continuous monitoring of performance metrics such as CPU usage, response time, and instance health is essential to maintain optimal operation and responsiveness. This combination of load balancing and auto scaling ensures the application can efficiently handle varying traffic loads while optimizing resource usage and cost.
+            </p>
+            
+        </div>
 
-        <h3>Real-time Applications</h3>
-        <p>Handle high-performance TCP and UDP workloads using NLB.</p>
+        <h3>2. Microservices Architecture</h3>
+        <div
+                style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;">
+                <img src="../code-images/microserviceELB.png" alt="elb">
+            <p>
+This tutorial outlines the process of building and deploying dockerized microservices on Amazon ECS using the Fargate launch type, which eliminates the need to manage underlying EC2 instances. Developers begin by creating an ECS cluster to host their services, followed by building Docker images for each microservice and pushing them to a container registry like ECR or Docker Hub. Each microservice is defined using an ECS task definition that specifies container configurations and resource requirements. ECS services are then created to manage and maintain the desired number of running containers. To achieve load balancing and intelligent routing, an Application Load Balancer (ALB) is integrated, with separate target groups for each microservice. Listeners and routing rules are configured to direct incoming requests to the appropriate services based on path or domain. The ECS tasks are registered with these target groups to receive traffic. The deployment process is managed via the AWS CLI, allowing automation and streamlined configuration of ECS, ECR, and ELB components. By combining ECS, Fargate, and ALB, this approach provides a scalable, manageable, and highly available solution for deploying microservices in production-ready environments.
+</p>
 
-        <h3>Third-party Virtual Appliances</h3>
-        <p>Deploy and scale virtual appliances using Gateway Load Balancer.</p>
+        </div>
+
     </section>
 
     <section class="references">
@@ -79,6 +114,24 @@
         <div>
            
             <a target="_blank" href="https://medium.com/@davidmcc9568/elastic-load-balancing-on-aws-quick-guide-7b14a081873b">2. AWS Quick Guide: Elastic Load Balancing</a>
+        </div>
+        <div>
+            <a href="https://www.bing.com/images/search?view=detailV2&ccid=3kz27xix&id=39CF92EBEEB46226F5A016F6AF7B9813B880A59B&thid=OIP.3kz27xixDe8MPFT1B56eiAHaDs&mediaurl=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fwp-content%2Fuploads%2F20240130183312%2FRound-Robin-%25281%2529.webp&exph=500&expw=1001&q=round+robin+load+balancing&simid=608001266727792622&FORM=IRPRST&ck=EADEF0C120F8E8DFDEAA1BE8FBB50E80&selectedIndex=6&itb=0&cw=1375&ch=637&ajaxhist=0&ajaxserp=0">3. Round Robin load balancing</a>
+        </div>
+        <div>
+            <a href="https://www.bing.com/images/search?view=detailV2&ccid=3kz27xix&id=39CF92EBEEB46226F5A016F6AF7B9813B880A59B&thid=OIP.3kz27xixDe8MPFT1B56eiAHaDs&mediaurl=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fwp-content%2Fuploads%2F20240130183312%2FRound-Robin-%25281%2529.webp&exph=500&expw=1001&q=round+robin+load+balancing&simid=608001266727792622&FORM=IRPRST&ck=EADEF0C120F8E8DFDEAA1BE8FBB50E80&selectedIndex=6&itb=0&cw=1375&ch=637&ajaxhist=0&ajaxserp=0">4. Least Outstanding Requests (LOR) load balancing</a>
+        </div>
+        <div>
+            <a href="https://www.bing.com/images/search?view=detailV2&ccid=9ojwJb29&id=72CE5B95EA6981EEC59AEBE72BA97396F1D05853&thid=OIP.9ojwJb29Pk_nlc1421va_wHaCv&mediaurl=https%3A%2F%2Fchrisjhart.com%2Fimages%2F2021%2Funderstanding-load-balancing-on-network-devices%2Fhashing-algorithm-two.jpg&exph=348&expw=941&q=Flow+hash+load+balancing&simid=608000369058393755&FORM=IRPRST&ck=DDD1544B14AA1E99A4A55134AD545BF2&selectedIndex=1&itb=0&cw=1375&ch=637&ajaxhist=0&ajaxserp=0">5. Flow Hash (5-tuple Hashing) load balancing</a>
+        </div>
+        <div>
+            <a href="https://smjeon.dev/assets/img/loadbalancing/sticky-session.gif">6. Sticky Sessions (Session Affinity)</a>
+        </div>
+        <div>
+            <a href="https://medium.com/@leanfolks/web-application-scaling-with-elastic-load-balancer-17fba29e48e9">7. Web Application Scaling with Elastic Load Balancer </a>
+        </div>
+        <div>
+            <a href="https://sl.bing.net/gaTQlC9veRE">8. Load balancing with Microservices</a>
         </div>
     </section>
 

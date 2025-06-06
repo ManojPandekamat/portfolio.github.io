@@ -30,16 +30,142 @@
     <section id="smart-allocation">
         <h2>Smart Resource Allocation with Stable Marriage Algorithm</h2>
         <img src="../ref-images/ec2-approach.png" alt="approach">
+
     <p>
-        Want to see how EC2 instance allocation can be optimized using intelligent algorithms?
-        Explore how we apply the <strong>Stable Marriage Problem</strong> to allocate VMs to hosts efficiently,
-        ensuring better load balancing and resource utilization.
+        This method applies the <strong>Stable Marriage Problem</strong> algorithm to intelligently allocate virtual machines (VMs) to physical EC2 hosts. Each VM ranks hosts based on available resources, while each host ranks VMs based on how lightweight they are. The Gale-Shapley algorithm ensures a stable outcome, where no VM-host pair would prefer to switch from their current match.
     </p>
-    <p  style="text-align:center;">
-        <a id="btn" href="../Code/EC2-code.HTML" >
-            View Stable Allocation Approach
+
+
+    <h3>Scoring Formulas for Preference Lists</h3>
+    <p>
+        Both VMs and EC2 hosts use custom scoring formulas to generate their preference lists before executing the Stable Marriage algorithm.
+    </p>
+
+    <h3>1. Host Suitability (VM’s Preference over Hosts)</h3>
+    <p>
+        Each VM calculates how suitable a host is based on its available resources and current load:
+    </p>
+    <pre><code>
+// Higher Host Score means better suitability for the VM
+hostScore = (availableCpu + availableRam) / currentVms;
+
+// Avoid divide by zero
+if (currentVms == 0) currentVms = 1;
+    </code></pre>
+    <p>
+        This score gives preference to hosts with more free CPU and RAM and fewer existing VMs, ensuring better balance.
+    </p>
+
+        <h3>2. VM Suitability (Host’s Preference over VMs)</h3>
+    <p>
+        Hosts prefer lightweight VMs that consume fewer resources. Here's how they score each VM:
+    </p>
+    <pre><code>
+// Lower VM Score is better (more lightweight)
+vmScore =( (requiredCpu ) + (requiredRam ) )/ Total_Hosts;
+
+
+    </code></pre>
+    <p>
+        For instance,If there are 3 VMs need to be allocated, a VM needing 2 CPU and 4 GB RAM gets a score of <code>(2 + 4)/3 = 2</code>. Hosts sort VMs in ascending order of this score, favoring smaller VMs to optimize their resource usage.
+    </p>
+
+    <h2>Sample Output Explanation</h2>
+
+    <div
+    style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;" 
+    >
+    <h3>VM Resource Requirements</h3>
+    <ul>
+        <li>vm1: CPU=2, RAM=4</li>
+        <li>vm2: CPU=4, RAM=6</li>
+        <li>vm3: CPU=1, RAM=2</li>
+    </ul>
+
+    <h3>Initial Hosts Resource Scores</h3>
+    <ul>
+        <li>h1: AvailableCpu=6, AvailableRam=12, CurrentVMs=1, Score=18.00</li>
+        <li>h2: AvailableCpu=8, AvailableRam=16, CurrentVMs=2, Score=12.00</li>
+        <li>h3: AvailableCpu=10, AvailableRam=8, CurrentVMs=1, Score=18.00</li>
+    </ul>
+
+    <h3>VM Preferences</h3>
+    <ul>
+        <li>vm1 preferences: h1(18.00) h3(18.00) h2(12.00)</li>
+        <li>vm2 preferences: h1(18.00) h3(18.00) h2(12.00)</li>
+        <li>vm3 preferences: h1(18.00) h3(18.00) h2(12.00)</li>
+    </ul>
+
+    <h3>Host Preferences</h3>
+    <ul>
+        <li>h1 preferences: vm3(1.00) vm1(2.00) vm2(3.33)</li>
+        <li>h2 preferences: vm3(1.00) vm1(2.00) vm2(3.33)</li>
+        <li>h3 preferences: vm3(1.00) vm1(2.00) vm2(3.33)</li>
+    </ul>
+
+    <h3>Starting Stable Matching Iterations</h3>
+    
+    <h4>Iteration 1:</h4>
+    <ul>
+        <li>VM vm2 proposes to Host h1</li>
+        <li>Host h1 has capacity. Assigned VM vm2.</li>
+        <li>Current Host Assignments:</li>
+        <li>h1 → vm2</li>
+        <li>h2 → (none)</li>
+        <li>h3 → (none)</li>
+    </ul>
+
+    <h4>Iteration 2:</h4>
+    <ul>
+        <li>VM vm1 proposes to Host h1</li>
+        <li>Host h1 has capacity. Assigned VM vm1.</li>
+        <li>Current Host Assignments:</li>
+        <li>h1 → vm2 vm1</li>
+        <li>h2 → (none)</li>
+        <li>h3 → (none)</li>
+    </ul>
+
+    <h4>Iteration 3:</h4>
+    <ul>
+        <li>VM vm3 proposes to Host h1</li>
+        <li>Host h1 replaced VM vm2 with VM vm3. VM vm2 is free again.</li>
+        <li>Current Host Assignments:</li>
+        <li>h1 → vm1 vm3</li>
+        <li>h2 → (none)</li>
+        <li>h3 → (none)</li>
+    </ul>
+
+    <h4>Iteration 4:</h4>
+    <ul>
+        <li>VM vm2 proposes to Host h3</li>
+        <li>Host h3 has capacity. Assigned VM vm2.</li>
+        <li>Current Host Assignments:</li>
+        <li>h1 → vm1 vm3</li>
+        <li>h2 → (none)</li>
+        <li>h3 → vm2</li>
+    </ul>
+
+    <h3>Final Assignments</h3>
+    <ul>
+        <li>h1 → [vm1, vm3]</li>
+        <li>h2 → []</li>
+        <li>h3 → [vm2]</li>
+    </ul>
+</div>
+
+        <h2>Code File</h2>
+    <p style="text-align:center;">
+        View the full Java source code here:<br>
+        <a href="https://github.com/manojpandekamat/portfolio.github.io/blob/main/Code-Samples/EC2_Resource_allocation.java" target="_blank">
+            <strong>EC2_Resource_allocation.java on GitHub</strong>
         </a>
     </p>
+
+    <h4>
+        <strong>Time Complexity:</strong> O(n × m), where n is the number of VMs and m is the number of hosts, because each VM may propose to each host once.<br><br>
+        <strong>Space Complexity:</strong> O(n × m) for preference storage, plus O(n + m) for queues and final assignments.
+    </h4>
+
 </section>
 
 

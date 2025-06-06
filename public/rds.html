@@ -41,6 +41,136 @@
 
     </section>
 
+<section id="rds-smart-queries">
+    <h2>Smart Querying & Indexing in AWS RDS</h2>
+    <div
+    style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;"
+    >
+        
+        <h3>Business Goal: Revenue between two dates, fast range sums.</h3>
+        
+     <h2>Sample Schema for Revenue Table</h2>
+    <img src="../code-images/RDS-fenwickTree.png" alt="Schema for orders table with order_id, user_id, order_date, amount">
+
+        <h2>Sample Schema for Storing Results in DB</h2>
+    <img src="../code-images/RDS_fenwickTree2.png" alt="Schema for daily revenue prefix sums table with revenue_date and prefix_sum columns">
+    
+    <p>
+        <strong>Approach Explanation:</strong><br>
+        To efficiently retrieve total revenue within any date range, we preprocess the orders data by building a Fenwick Tree (also called a Binary Indexed Tree) over daily revenues. This data structure allows fast prefix sum queries in O(log n) time. We store these prefix sums in a dedicated table in the database, allowing quick range-sum calculations by subtracting prefix sums at appropriate dates. This avoids scanning large amounts of order data during queries and significantly speeds up reporting and analytics tasks.
+    </p>
+    <h2>Sample Python Code for this Approach</h2>
+
+
+    <pre>
+        <code>
+import mysql.connector
+from datetime import datetime
+class FenwickTree:
+    def __init__(self, size):
+        self.tree = [0] * (size + 1)
+
+    def update(self, index, value):
+        while index < len(self.tree):
+            self.tree[index] += value
+            index += index & -index
+
+    def query(self, index):
+        res = 0
+        while index > 0:
+            res += self.tree[index]
+            index -= index & -index
+        return res
+
+conn = mysql.connector.connect(
+    host="your-host",
+    user="your-username",
+    password="your-password",
+    database="your-database"
+)
+cursor = conn.cursor()
+
+cursor.execute("SELECT order_date, amount FROM orders ORDER BY order_date")
+rows = cursor.fetchall()
+
+# Create date to index mapping
+date_list = sorted(list({row[0] for row in rows}))
+date_to_index = {date: i+1 for i, date in enumerate(date_list)}  # 1-based index
+
+ft = FenwickTree(len(date_list))
+for date, amount in rows:
+    idx = date_to_index[date]
+    ft.update(idx, float(amount))
+
+cursor.execute("DROP TABLE IF EXISTS daily_revenue_prefix")
+cursor.execute("""
+CREATE TABLE daily_revenue_prefix (
+    revenue_date DATE PRIMARY KEY,
+    prefix_sum DECIMAL(10,2)
+)
+""")
+
+for date, idx in date_to_index.items():
+    psum = ft.query(idx)
+    cursor.execute("INSERT INTO daily_revenue_prefix (revenue_date, prefix_sum) VALUES (%s, %s)", (date, psum))
+
+conn.commit()
+
+def get_revenue(start_date: str, end_date: str):
+    # Get prefix sum for end and (start - 1)
+    cursor.execute("SELECT prefix_sum FROM daily_revenue_prefix WHERE revenue_date <= %s ORDER BY revenue_date DESC LIMIT 1", (end_date,))
+    end_val = cursor.fetchone()
+    cursor.execute("SELECT prefix_sum FROM daily_revenue_prefix WHERE revenue_date < %s ORDER BY revenue_date DESC LIMIT 1", (start_date,))
+    start_val = cursor.fetchone()
+    return round((end_val[0] if end_val else 0) - (start_val[0] if start_val else 0), 2)
+
+print("Revenue from 2024-01-01 to 2024-03-01:", get_revenue("2024-01-01", "2024-03-01"))
+
+cursor.close()
+conn.close()
+
+        </code>
+    </pre>
+
+        <p>
+        <strong>Code Explanation:</strong><br>
+        The code connects to the SQL database and fetches all orders sorted by date. It maps unique dates to indices and builds a Fenwick Tree where each node stores cumulative revenue sums. After building the tree, it calculates prefix sums for all dates and inserts them into a new database table for fast retrieval. The query function uses these stored prefix sums to quickly compute total revenue between any two dates with just two lookups and simple subtraction, enabling efficient range queries.
+    </p>
+
+<h2>Time and Space Complexity</h2>
+<h4>
+
+    <p>
+        <strong>Time Complexity:</strong><br />
+        - Building the Fenwick Tree takes <code>O(n log n)</code> time, where <code>n</code> is the number of unique dates.<br />
+        - Each update and prefix sum query operation runs in <code>O(log n)</code> time.<br />
+        - Range sum queries (between two dates) use two prefix queries, so overall <code>O(log n)</code>.
+    </p>
+    <p>
+        <strong>Space Complexity:</strong><br />
+        - The Fenwick Tree requires <code>O(n)</code> space to store prefix sums.<br />
+        - Additional space is used for mapping dates to indices, also <code>O(n)</code>.<br />
+        - The <code>daily_revenue_prefix</code> table stores <code>n</code> rows in the database.
+    </p>
+    <p>
+        This approach significantly improves performance for repeated range revenue queries by avoiding
+        scanning all rows every time and instead leveraging prefix sums.
+    </p>
+</h4>
+
+<h2>Code File</h2>
+    <p style="text-align:center;">
+        View the full Python source code here:<br>
+        <a href="https://github.com/manojpandekamat/portfolio.github.io/blob/main/Code-Samples/RDS_FenwickTree.py" target="_blank" rel="noopener noreferrer">
+            <strong>RDS_FenwickTree.py on GitHub</strong>
+        </a>
+    </p>
+    
+</div>
+</section>
+
+
+
     <section>
         <h2>Steps to Set Up RDS in AWS</h2>
         <ul>

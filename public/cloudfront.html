@@ -86,20 +86,174 @@
         </p>
     </section>
 
+<section id="a-star-cdn-routing">
+    <h2>Finding the Nearest CDN Node</h2>
+    <img src="../code-images/cf_A1.png" alt="A1">
+    <h2>Finding the Nearest CDN Node Using A*</h2>
+    <div style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;" >
+  <p>
+    In this graph-based routing scenario, the user starts at node <code>S</code> and the goal is to reach the nearest CDN node (either <code>G1</code> or <code>G2</code>), which are designated as goal states. The graph is modeled with edges representing network paths, where step cost indicates latency or distance, and heuristic values represent estimated remaining cost to the goal (like geographical proximity or expected load).
+  </p>
+  <p>
+    The A* algorithm is ideal for this setup because it combines actual cost from the start node and a heuristic estimate of the remaining cost to the goal. It always expands the node with the lowest combined estimated total cost (<code>f(n) = g(n) + h(n)</code>), ensuring both accuracy and efficiency.
+  </p>
+  <p>
+    By applying A* from node <code>S</code>, the algorithm will dynamically evaluate all paths and converge on the nearest CDN node with the minimum cost route, optimizing for latency and performance. This strategy can be embedded in edge-aware applications to dynamically assign the most suitable CDN endpoint to a user.
+  </p>
+  <h3>Python code snippet for A* Algorithm</h3>
+  <img src="../code-images/A_star.png" alt="">
+  <h4>
+  The <strong>A*</strong> algorithm has a time complexity of <em>O(b^d)</em> in the worst case, where <em>b</em> is the branching factor (number of neighbors per node) and <em>d</em> is the depth of the shortest path. Its space complexity is also <em>O(b^d)</em> because it keeps all generated nodes in memory to find the optimal path.
+  </h4>
+
+    <h2>Code File</h2>
+    <p style="text-align:center;">
+        View the full Python source code here:<br>
+        <a href="https://github.com/manojpandekamat/portfolio.github.io/blob/main/Code-Samples/A_star.py" target="_blank">
+            <strong>A_star.py on GitHub</strong>
+        </a>
+    </p>
+</div>
+
+<h2>Finding the Nearest CDN Node Using Dijkstra's Algorithm</h2>
+<div style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;">
+  <p>
+    In this network routing scenario, the user starts at node <code>S</code> and the goal is to reach the nearest CDN node (such as <code>G1</code> or <code>G2</code>). The graph edges represent network paths with associated costs like latency or distance.
+  </p>
+  <p>
+    Dijkstra's algorithm is suitable here as it finds the shortest path from the start node to all other nodes by progressively selecting the node with the smallest tentative distance. Unlike A*, it does not use a heuristic and guarantees the shortest path in graphs with non-negative edge weights.
+  </p>
+  <p>
+    By running Dijkstra’s algorithm from node <code>S</code>, the algorithm explores all possible paths systematically and eventually identifies the closest CDN node by total cost. This method is effective for networks where heuristic estimates are unavailable or unreliable.
+  </p>
+  <h3>Python code snippet for Dijkstra's Algorithm</h3>
+  <img src="../code-images/Dijktras.png" alt="Dijkstra's Algorithm Python Code">
+  <h4>
+    The <strong>Dijkstra's</strong> algorithm has a time complexity of <em>O((V + E) \log V)</em> when using a priority queue (with <em>V</em> as the number of vertices and <em>E</em> as the number of edges). Its space complexity is <em>O(V)</em>, required for storing distances and priority queue elements.
+  </h4>
+
+      <h2>Code File</h2>
+    <p style="text-align:center;">
+        View the full Python source code here:<br>
+        <a href="https://github.com/manojpandekamat/portfolio.github.io/blob/main/Code-Samples/Dijkstra.py" target="_blank">
+            <strong>Dijkstra.py on GitHub</strong>
+        </a>
+    </p>
+</div>
+
+
+
+</section>
+
+
+
+
+
+
     <section>
         <h2>AWS Use Cases for CloudFront</h2>
+<h2>1. Multiplayer Games and CloudFront</h2>
 
-        <h3>Static Website Hosting</h3>
-        <p>Deliver static assets like HTML, CSS, JS, and images with low latency using S3 + CloudFront.</p>
+<img src="../code-images/cf_1.png" alt="cf1">
+<div style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;">
+    <h2>Multiplayer Game Flow Example</h2>
+<ol style="font-family: Arial; background-color: #f4f6fa; padding: 15px; border-radius: 8px;">
+  <li>User in North America creates a game.</li>
+  <li>Server returns room code <code>ABC123</code> and IP <code>43.234.23.52</code>.</li>
+  <li>User shares the room code with a friend in Europe.</li>
+  <li>European user queries DNS and gets all regional server IPs.</li>
+  <li>European user tries all servers; only US East accepts the room code.</li>
+  <li>US East server connects the European player to the game.</li>
+</ol>
 
-        <h3>Video Streaming</h3>
-        <p>Stream on-demand or live video content efficiently to a global audience.</p>
 
-        <h3>API Acceleration</h3>
-        <p>Improve API performance and security with CloudFront caching and AWS WAF integration.</p>
+  <h3 style="color: #2c3e50;">How Multiplayer Games Use CloudFront to Enhance Player Experience</h3>
 
-        <h3>Dynamic Content Delivery</h3>
-        <p>Serve dynamic web applications by caching portions of dynamic responses at the edge.</p>
+  <p>
+    Multiplayer games rely on fast, reliable, and secure delivery of game content and real-time data to provide a seamless experience for players worldwide.
+    Amazon CloudFront, a globally distributed content delivery network (CDN), plays a crucial role in achieving this. Here’s how:
+  </p>
+
+  <h3 style="color: #2c3e50; margin-top: 24px;">Low Latency Gameplay</h3>
+  <p>
+    CloudFront caches static and dynamic game content at 450+ global edge locations, reducing the physical distance between players and game servers. 
+    This significantly lowers latency—critical for real-time multiplayer interactions.
+  </p>
+  <p>
+    CloudFront also supports the WebSocket protocol for fast, bi-directional communication used in live chats, leaderboards, and gameplay events.
+  </p>
+
+  <h3 style="color: #2c3e50; margin-top: 24px;">Accelerated Content Delivery</h3>
+  <p>
+    Game downloads, patches, mods, and promotional assets are cached at the edge, ensuring rapid delivery even during major launches. 
+    This reduces origin server load and ensures global players receive updates instantly.
+  </p>
+
+  <h3 style="color: #2c3e50; margin-top: 24px;">Dynamic Content Optimization</h3>
+  <p>
+    For turn-based or asynchronous gameplay, CloudFront speeds up dynamic content delivery by terminating SSL at the edge and optimizing TCP connections. 
+    It uses AWS’s private backbone for fast, low-latency routing to origin servers.
+  </p>
+
+  <h3 style="color: #2c3e50; margin-top: 24px;">Personalization and Edge Compute</h3>
+  <p>
+    With <strong>Lambda@Edge</strong> and <strong>CloudFront Functions</strong>, developers execute logic directly at edge locations—personalizing content, 
+    handling matchmaking logic, or authenticating users without round trips to the origin.
+  </p>
+
+  <h3 style="color: #2c3e50; margin-top: 24px;">Global Scalability and Matchmaking</3>
+  <p>
+    CloudFront enables games to reach a global player base with minimal lag. 
+    Games like Supercell’s <em>“Squad Busters”</em> use latency insights from CloudFront to select the best battle region for optimal matchmaking.
+  </p>
+  <p>
+    Real-time analytics from edge locations help identify underserved regions, allowing developers to improve infrastructure for an even smoother gaming experience.
+  </p>
+
+</div>
+
+
+<h2>2. Static Website Hosting on CloudFront</h2>
+<div style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;" >
+    
+    <ol>
+        <li>Register your domain using Route 53 to reserve a unique name.</li>
+        <li>Request a public SSL certificate from AWS Certificate Manager in US East (N. Virginia).</li>
+        <li>Create an S3 bucket for your subdomain (e.g., www.example.com) to store website files.</li>
+        <li>Create a second S3 bucket for your root domain (e.g., example.com) to handle redirects.</li>
+        <li>Upload your website files (like index.html) to the subdomain S3 bucket.</li>
+        <li>Configure the root domain bucket to redirect all traffic to the subdomain using HTTPS.</li>
+        <li>Create a CloudFront distribution for the subdomain bucket and enable HTTPS.</li>
+        <li>Create another CloudFront distribution for the root domain redirect bucket.</li>
+        <li>Use Route 53 to point your domain and subdomain to the appropriate CloudFront distributions.</li>
+        <li>Test the site by visiting both www.example.com and example.com to confirm hosting and redirection work.</li>
+    </ol>
+
+    <img src="../code-images/cf_2.png" alt="cf2">
+      <p>
+    The diagram illustrates the architecture for hosting a secure static website using AWS services. The client sends a request that is first resolved by <em>Amazon Route 53</em>, which routes traffic based on DNS settings. <em>Amazon CloudFront</em>, a content delivery network (CDN), then serves the website content efficiently and securely using HTTPS, enabled by an SSL certificate managed through <em>AWS Certificate Manager</em>. The static site content, such as the React build files, is stored in an <em>Amazon S3</em> bucket. Source code is typically pushed from <em>GitHub</em> and built using <em>React</em>, which is then deployed to S3 for hosting. This setup ensures fast, scalable, and secure website delivery.
+  </p>
+</div>
+
+        <h2>3. Video Streaming Service Using AWS S3 and CloudFront</h2>
+        <div
+        style="background-color:#f4f6fa; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;"
+        >
+            <img src="../code-images/cf_4.png" alt="">
+  <p>
+    This architecture enables a scalable and low-latency video streaming service using AWS infrastructure. Video files are securely uploaded and stored in an <em>Amazon S3</em> bucket. To deliver this content efficiently across the globe, <em>AWS CloudFront</em> is configured as a content delivery network (CDN), which fetches videos from the S3 origin and serves them via edge locations, minimizing buffering and improving load time.
+  </p>
+  <p>
+    The system supports secure access using origin access control, and optionally restricts public access to the S3 bucket. A policy is applied to grant CloudFront permission to access the bucket contents. The final video URLs use the CloudFront domain combined with the object key to serve video files seamlessly in a web frontend.
+  </p>
+  <p>
+    After setting up the infrastructure, the video player on the client side simply fetches the content via the CloudFront URL, ensuring optimized delivery and high availability. This setup is suitable for platforms requiring robust and global video streaming capabilities.
+  </p>
+  <h3>Sample React.js code snippet for Video Streaming </h3>
+  <img src="../code-images/cf_3.png" alt="code">
+        </div>
+
+
     </section>
 
     <section class="references">
@@ -108,6 +262,21 @@
         <div>
             2. CloudFront Developer Guide
             <a target="_blank" href="https://www.geeksforgeeks.org/aws-cloudfront/">geeksforgeeks</a>
+        </div>
+        <div>
+            <a href="https://aws.amazon.com/blogs/gametech/accelerate-your-game/">Multiplayer games using cloudFront</a>
+        </div>
+        <div>
+            <a href="https://www.bing.com/images/search?view=detailV2&ccid=CoDFWdir&id=7D169DD8CD327B33FD9B24CC7185A70A1311BC90&thid=OIP.CoDFWdir4ai44QnSnV504AHaD1&mediaurl=https%3A%2F%2Fblog.hathora.dev%2Fcontent%2Fimages%2Fsize%2Fw1600%2F2022%2F06%2FScreen-Shot-2022-06-29-at-9.14.31-PM.png&exph=829&expw=1600&q=How+Multiplayer+Games+using+cloudfront+works&simid=608025988510542018&FORM=IRPRST&ck=AC468222C347B272492938C6DC7B4A8E&selectedIndex=1&itb=0&cw=1375&ch=637&ajaxhist=0&ajaxserp=0">3. Multiplayer Game Flow Example image reference</a>
+            
+        </div>
+        <div>
+            <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started-cloudfront-overview.html#:~:text=This%20getting%20started%20tutorial%20shows%20you%20how%20to,and%20save%20the%20file%20in%20your%20S3%20bucket.">4. Static Website hosting AWS CloudFront</a>
+            
+        </div>
+        <div>
+            <a href="https://www.bing.com/images/search?view=detailV2&ccid=VRz%2B72O%2B&id=461F4AACD9DB88AC912AE0CEF5C82A0754B7057B&thid=OIP.VRz-72O-y7rI2uemUklinwHaDJ&mediaurl=https%3A%2F%2Fmiro.medium.com%2Fv2%2Fresize%3Afit%3A1200%2F1*4sb209LohOyh_JCo-Zonzg.png&exph=509&expw=1200&q=website+hosting+using+cloudfront&simid=608050113313250334&FORM=IRPRST&ck=B8A5F754D3AFEB0F0A2771F36CEC9866&selectedIndex=1&itb=0&cw=1375&ch=637&ajaxhist=0&ajaxserp=0">5. Design of Static website Hosting in CloudFront and S3</a>
+            
         </div>
     </section>
 
